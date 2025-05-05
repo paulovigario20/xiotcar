@@ -8,6 +8,8 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\RetomaController;
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -53,6 +55,10 @@ Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
 Route::get('/', [SiteController::class, 'home'])->name('site.home');
 Route::get('/carros', [SiteController::class, 'carros'])->name('site.carros');
 Route::get('/sobre', [SiteController::class, 'sobre'])->name('site.sobre');
+
+Route::post('/retomas', [RetomaController::class, 'store']);
+Route::get('/dashboard/retomas', [RetomaController::class, 'index'])->middleware(['auth', 'admin']);
+Route::get('/dashboard', [RetomaController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 
 require __DIR__.'/auth.php';

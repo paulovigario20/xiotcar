@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    // database/migrations/xxxx_xx_xx_create_retomas_table.php
+public function up()
+{
+    Schema::create('retomas', function (Blueprint $table) {
+        $table->id();
+        $table->string('marca');
+        $table->string('modelo');
+        $table->year('ano');
+        $table->integer('quilometragem');
+        $table->string('contacto');
+        $table->text('observacoes')->nullable();
+        $table->json('imagens')->nullable(); // Para guardar nomes dos ficheiros
+        $table->boolean('lida')->default(false); // Notificação não lida
+        $table->timestamps();
+    });
+}
+
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('retomas');
+    }
+};

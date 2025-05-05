@@ -1,7 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Dashboard({ carsCount = 0, brandsCount = 0, usersCount = 0 }) {
+export default function Dashboard({ carsCount = 0, brandsCount = 0, usersCount = 0, retomas = [] }) {
+
     return (
         <AuthenticatedLayout
             header={
@@ -65,7 +66,25 @@ export default function Dashboard({ carsCount = 0, brandsCount = 0, usersCount =
                             </Link>
                         </div>
                     </div>
-
+                    <div className="bg-white p-6 rounded-lg shadow">
+    <h3 className="text-lg font-semibold mb-4 text-gray-700">Retomas Recentes</h3>
+    {retomas.length === 0 ? (
+        <p className="text-gray-500">Nenhuma retoma recebida ainda.</p>
+    ) : (
+        <ul className="space-y-4">
+            {retomas.map((retoma) => (
+                <li key={retoma.id} className="p-4 border rounded-md shadow-sm bg-gray-50">
+                    <p><strong>Nome:</strong> {retoma.nome}</p>
+                    <p><strong>Email:</strong> {retoma.email}</p>
+                    <p><strong>Marca:</strong> {retoma.marca}</p>
+                    <p><strong>Modelo:</strong> {retoma.modelo}</p>
+                    <p><strong>Mensagem:</strong> {retoma.mensagem}</p>
+                    <p className="text-sm text-gray-500 mt-2">Recebido em: {new Date(retoma.created_at).toLocaleString()}</p>
+                </li>
+            ))}
+        </ul>
+    )}
+</div>
                 </div>
             </div>
         </AuthenticatedLayout>
