@@ -2,8 +2,15 @@
 import { Head } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import CarImageCarousel from '@/Components/CarImageCarousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import SwiperCore from 'swiper';
+import { Autoplay } from 'swiper/modules';
 
-export default function Home() {
+SwiperCore.use([Autoplay]);
+
+export default function Home({ testemunhos = [] }) {
     return (
         <PublicLayout>
             <Head title="Início" />
@@ -11,17 +18,14 @@ export default function Home() {
             {/* Hero */}
             <section className="bg-cover bg-center text-white py-20 px-6" style={{ backgroundImage: "url('/logos/logo.jpeg')" }}>
     <div className="max-w-3xl mx-auto text-center p-8">
-        <h1 className="text-4xl font-bold mb-4">Encontre o Veículo dos Seus Sonhos</h1>
+        <h1 className="text-4xl font-bold mb-4">Encontre o Veículo dos seus Sonhos</h1>
         <p className="mb-6">Escolha entre uma seleção variada de veículos.</p>
-        <div className="flex justify-center gap-4">
-            <a href="/carros" className="bg-blue-600 px-6 py-2 rounded hover:bg-blue-700">Pesquisar Veículos</a>
-            <a href="https://wa.me/935920018" className="bg-green-600 px-6 py-2 rounded hover:bg-green-700">Comprar Agora</a>
-        </div>
+        
     </div>
 </section>
 
             {/* Formulário de busca */}
-            <section className="py-12 bg-white text-center">
+            <section className="py-12 bg-gray-600 text-center">
                 <h2 className="text-2xl font-semibold mb-6">Encontre o seu veículo</h2>
                 <form className="flex flex-col md:flex-row gap-4 justify-center">
                     <input type="text" placeholder="Modelo ou Marca" className="p-2 border rounded w-full md:w-60" />
@@ -37,7 +41,7 @@ export default function Home() {
             </section>
 
             {/* Simulador de Crédito */}
-            <section className="py-12 bg-gray-100 text-center">
+            <section className="py-12 bg-gray-600 text-center">
                 <h2 className="text-2xl font-semibold mb-6">💰 Simule o seu Crédito</h2>
                 <form onSubmit={handleSimuladorSubmit} className="flex flex-col md:flex-row gap-4 justify-center mb-4">
                     <input type="number" id="valor" placeholder="Valor do veiculo" className="p-2 border rounded" />
@@ -49,7 +53,7 @@ export default function Home() {
             </section>
 
             {/* Modelos em Destaque */}
-            <section className="py-12 bg-white text-center">
+            <section className="py-12 bg-gray-600 text-center">
     <h2 className="text-2xl font-semibold mb-8">🔥 Modelos em Destaque</h2>
     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         {/* BMW X5 */}
@@ -59,6 +63,7 @@ export default function Home() {
             <p className="text-gray-700">22.900€</p>
             <button className="mt-2 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">Ver Detalhes</button>
         </div>
+        
 
         {/* Audi A4 */}
         <div className="bg-gray-100 rounded p-4 shadow">
@@ -77,6 +82,46 @@ export default function Home() {
         </div>
     </div>
 </section>
+
+        {/* Marcas comercializadas */}
+<section className="py-12 bg-white text-center">
+    <h2 className="text-2xl font-bold mb-2">Marcas</h2>
+    <p className="text-red-600 font-semibold mb-6">MARCAS QUE COMERCIALIZAMOS</p>
+
+    <div className="px-4">
+        <Swiper
+            spaceBetween={20}
+            loop={true}
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            breakpoints={{
+                320: { slidesPerView: 2 },
+                640: { slidesPerView: 3 },
+                768: { slidesPerView: 5 },
+                1024: { slidesPerView: 6 },
+            }}
+        >
+            {[
+                'audi', 'bmw', 'byd', 'citroen', 'dacia',
+                'fiat', 'ford', 'honda', 'hyundai', 'jeep',
+                'kia', 'mazda', 'mercedes', 'nissan', 'peugeot',
+                'renault', 'seat', 'skoda', 'toyota', 'volkswagen', 'volvo'
+            ].map((marca, idx) => (
+                <SwiperSlide key={idx} className="flex justify-center">
+                    <div className="bg-white rounded-3xl shadow-md p-4 w-32 h-28 flex flex-col justify-center items-center">
+                        <img
+                            src={`/imgs/marcas/${marca}.png`}
+                            alt={marca}
+                            className="h-10 object-contain mb-1"
+                        />
+                        <span className="text-sm font-medium capitalize">{marca}</span>
+                    </div>
+                </SwiperSlide>
+            ))}
+        </Swiper>
+    </div>
+</section>
+
+
 <section className="py-12 bg-white text-center">
     <h2 className="text-2xl font-semibold mb-6">🚙 Quer entregar o seu carro usado?</h2>
     <p className="mb-6 text-gray-700">Aceitamos retomas! Preencha os dados do seu veículo e entraremos em contacto.</p>
@@ -154,19 +199,27 @@ export default function Home() {
 
 
             {/* Testemunhos */}
-            <section className="py-12 bg-gray-100 text-center">
-                <h2 className="text-2xl font-semibold mb-6">🚗 O que nossos clientes dizem?</h2>
-                <div className="max-w-2xl mx-auto space-y-6">
-                    <blockquote className="bg-white p-4 rounded shadow">
-                        <p>"Comprei o meu carro aqui e adorei o atendimento! Recomendo muito!"</p>
-                        <h4 className="mt-2 font-bold">- João Silva</h4>
-                    </blockquote>
-                    <blockquote className="bg-white p-4 rounded shadow">
-                        <p>"Melhor experiência na compra de um veículo. Equipa muito atenciosa!"</p>
-                        <h4 className="mt-2 font-bold">- Maria Oliveira</h4>
-                    </blockquote>
-                </div>
-            </section>
+<section className="py-12 bg-gray-600 text-center text-white">
+    <h2 className="text-2xl font-semibold mb-6">🚗 O que nossos clientes dizem?</h2>
+
+    {/* Formulário */}
+    <form method="POST" action="/testemunhos" className="max-w-xl mx-auto space-y-4 mb-8 bg-white p-4 rounded shadow text-black">
+    
+    <input type="text" name="nome" placeholder="O seu nome" required className="w-full p-2 border rounded" />
+    <textarea name="mensagem" placeholder="A sua opinião" required className="w-full p-2 border rounded" rows="3" />
+    <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Enviar Testemunho</button>
+</form>
+
+    {/* Lista de testemunhos */}
+    <div className="max-w-2xl mx-auto space-y-6">
+        {testemunhos.map((t, idx) => (
+            <blockquote key={idx} className="bg-white p-4 rounded shadow text-black">
+                <p>"{t.mensagem}"</p>
+                <h4 className="mt-2 font-bold">- {t.nome}</h4>
+            </blockquote>
+        ))}
+    </div>
+</section>
 
             {/* Botão Flutuante WhatsApp */}
             <a href="https://wa.me/935920018" target="_blank" className="fixed bottom-6 right-6 bg-green-600 text-white px-4 py-2 rounded-full shadow hover:bg-green-700">

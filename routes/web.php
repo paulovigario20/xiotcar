@@ -9,6 +9,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\RetomaController;
+use App\Http\Controllers\TestemunhoController;
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -60,5 +61,7 @@ Route::post('/retomas', [RetomaController::class, 'store']);
 Route::get('/dashboard/retomas', [RetomaController::class, 'index'])->middleware(['auth', 'admin']);
 Route::get('/dashboard', [RetomaController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
+
+Route::post('/testemunhos', [TestemunhoController::class, 'store']);
 
 require __DIR__.'/auth.php';
