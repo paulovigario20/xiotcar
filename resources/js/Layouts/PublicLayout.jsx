@@ -10,7 +10,7 @@ export default function PublicLayout({ children }) {
                         <li><Link href="/" className="hover:text-blue-600">Início</Link></li>
                         <li><Link href="/carros" className="hover:text-blue-600">Modelos</Link></li>
                         <li><Link href="/sobre" className="hover:text-blue-600">Sobre Nós</Link></li>
-                        <li><Link href="#contacto" className="hover:text-blue-600">Contacto</Link></li>
+                        <li><Link href="/contacto" className="hover:text-blue-600">Contacto</Link></li>
                     </ul>
                 </nav>
                 

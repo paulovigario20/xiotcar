@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import SwiperCore from 'swiper';
 import { Autoplay } from 'swiper/modules';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 SwiperCore.use([Autoplay]);
 
@@ -25,7 +26,7 @@ export default function Home({ testemunhos = [] }) {
 </section>
 
             {/* Formulário de busca */}
-            <section className="py-12 bg-gray-600 text-center">
+            <section className="py-12 bg-white-600 text-center">
                 <h2 className="text-2xl font-semibold mb-6">Encontre o seu veículo</h2>
                 <form className="flex flex-col md:flex-row gap-4 justify-center">
                     <input type="text" placeholder="Modelo ou Marca" className="p-2 border rounded w-full md:w-60" />
@@ -41,7 +42,7 @@ export default function Home({ testemunhos = [] }) {
             </section>
 
             {/* Simulador de Crédito */}
-            <section className="py-12 bg-gray-600 text-center">
+            <section className="py-12 bg-white-600 text-center">
                 <h2 className="text-2xl font-semibold mb-6">💰 Simule o seu Crédito</h2>
                 <form onSubmit={handleSimuladorSubmit} className="flex flex-col md:flex-row gap-4 justify-center mb-4">
                     <input type="number" id="valor" placeholder="Valor do veiculo" className="p-2 border rounded" />
@@ -53,25 +54,73 @@ export default function Home({ testemunhos = [] }) {
             </section>
 
             {/* Modelos em Destaque */}
-            <section className="py-12 bg-gray-600 text-center">
+            <section className="py-12 bg-white-600 text-center">
     <h2 className="text-2xl font-semibold mb-8">🔥 Modelos em Destaque</h2>
     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         {/* BMW X5 */}
         <div className="bg-gray-100 rounded p-4 shadow">
-            <CarImageCarousel images={['/imgs/Tesla/tesla1.jpeg', '/imgs/Tesla/tesla3.jpeg', '/imgs/Tesla/tesla2.jpeg']} />
-            <h3 className="text-xl font-bold mt-2">Tesla</h3>
-            <p className="text-gray-700">22.900€</p>
-            <button className="mt-2 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">Ver Detalhes</button>
-        </div>
+  <CarImageCarousel images={['/a4.jpeg', '/a4-2.jpeg', '/a4-3.jpeg']} />
+
+  <h3 className="text-xl font-bold mt-2">Audi A4</h3>
+  <p className="text-gray-700 text-lg font-semibold">30.000€</p>
+
+  <div className="mt-2 text-sm text-gray-600">
+    <p><strong>Ano:</strong> 2021</p>
+    <p><strong>Quilómetros:</strong> 45.000 km</p>
+    <p><strong>Combustível:</strong> Gasóleo</p>
+    <p><strong>Transmissão:</strong> Automática</p>
+    <p><strong>Potência:</strong> 150 cv</p>
+  </div>
+
+  <div className="mt-2 text-sm text-gray-600">
+    <p><strong>Características:</strong></p>
+    <ul className="list-disc list-inside">
+      <li>Ar Condicionado Automático</li>
+      <li>Estofos em pele</li>
+      <li>Sensores de Estacionamento</li>
+      <li>Jantes de Liga Leve</li>
+      <li>GPS</li>
+      <li>Câmara de Marcha Atrás</li>
+    </ul>
+  </div>
+
+  <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+    Ver Detalhes
+  </button>
+</div>
         
 
         {/* Audi A4 */}
         <div className="bg-gray-100 rounded p-4 shadow">
-            <CarImageCarousel images={['/a4.jpeg', '/a4-2.jpeg', '/a4-3.jpeg']} />
-            <h3 className="text-xl font-bold mt-2">Audi A4</h3>
-            <p className="text-gray-700">30.000€</p>
-            <button className="mt-2 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">Ver Detalhes</button>
-        </div>
+  <CarImageCarousel images={['/a4.jpeg', '/a4-2.jpeg', '/a4-3.jpeg']} />
+
+  <h3 className="text-xl font-bold mt-2">Audi A4</h3>
+  <p className="text-gray-700 text-lg font-semibold">30.000€</p>
+
+  <div className="mt-2 text-sm text-gray-600">
+    <p><strong>Ano:</strong> 2021</p>
+    <p><strong>Quilómetros:</strong> 45.000 km</p>
+    <p><strong>Combustível:</strong> Gasóleo</p>
+    <p><strong>Transmissão:</strong> Automática</p>
+    <p><strong>Potência:</strong> 150 cv</p>
+  </div>
+
+  <div className="mt-2 text-sm text-gray-600">
+    <p><strong>Características:</strong></p>
+    <ul className="list-disc list-inside">
+      <li>Ar Condicionado Automático</li>
+      <li>Estofos em pele</li>
+      <li>Sensores de Estacionamento</li>
+      <li>Jantes de Liga Leve</li>
+      <li>GPS</li>
+      <li>Câmara de Marcha Atrás</li>
+    </ul>
+  </div>
+
+  <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+    Ver Detalhes
+  </button>
+</div>
 
         {/* Seat Cupra */}
         <div className="bg-gray-100 rounded p-4 shadow">
@@ -122,25 +171,110 @@ export default function Home({ testemunhos = [] }) {
 </section>
 
 
-<section className="py-12 bg-white text-center">
-    <h2 className="text-2xl font-semibold mb-6">🚙 Quer entregar o seu carro usado?</h2>
-    <p className="mb-6 text-gray-700">Aceitamos retomas! Preencha os dados do seu veículo e entraremos em contacto.</p>
-    <form
-    method="POST"
-    action="/retomas"
-    encType="multipart/form-data"
-    className="max-w-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4"
->
-    <input name="marca" type="text" placeholder="Marca" className="p-2 border rounded" required />
-    <input name="modelo" type="text" placeholder="Modelo" className="p-2 border rounded" required />
-    <input name="ano" type="number" placeholder="Ano" className="p-2 border rounded" required />
-    <input name="quilometragem" type="number" placeholder="Quilometragem" className="p-2 border rounded" required />
-    <input name="contacto" type="text" placeholder="Contacto (email ou telefone)" className="p-2 border rounded md:col-span-2" required />
-    <textarea name="observacoes" placeholder="Observações" className="p-2 border rounded md:col-span-2" rows="3" />
-    <input type="file" name="imagens[]" accept="image/*" multiple className="md:col-span-2" />
-    <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 md:col-span-2">Enviar Pedido</button>
-</form>
+<section className="py-16 bg-white text-center">
+  <div className="max-w-2xl mx-auto px-4">
+    <h2 className="text-3xl font-bold mb-2 text-gray-800">🚙 Entregue o seu carro usado</h2>
+    <p className="text-gray-600 mb-8">Aceitamos retomas! Preencha os dados e entraremos em contacto rapidamente.</p>
 
+    <form
+      method="POST"
+      action="/retomas"
+      encType="multipart/form-data"
+      className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left"
+    >
+      <div className="flex flex-col">
+        <label htmlFor="marca" className="text-sm font-medium text-gray-700 mb-1">Marca</label>
+        <input
+          name="marca"
+          id="marca"
+          type="text"
+          placeholder="Ex: BMW"
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
+
+      <div className="flex flex-col">
+        <label htmlFor="modelo" className="text-sm font-medium text-gray-700 mb-1">Modelo</label>
+        <input
+          name="modelo"
+          id="modelo"
+          type="text"
+          placeholder="Ex: Série 3"
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
+
+      <div className="flex flex-col">
+        <label htmlFor="ano" className="text-sm font-medium text-gray-700 mb-1">Ano</label>
+        <input
+          name="ano"
+          id="ano"
+          type="number"
+          placeholder="Ex: 2020"
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
+
+      <div className="flex flex-col">
+        <label htmlFor="quilometragem" className="text-sm font-medium text-gray-700 mb-1">Quilometragem</label>
+        <input
+          name="quilometragem"
+          id="quilometragem"
+          type="number"
+          placeholder="Ex: 50000"
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
+
+      <div className="flex flex-col md:col-span-2">
+        <label htmlFor="contacto" className="text-sm font-medium text-gray-700 mb-1">Contacto</label>
+        <input
+          name="contacto"
+          id="contacto"
+          type="text"
+          placeholder="Email ou telefone"
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          required
+        />
+      </div>
+
+      <div className="flex flex-col md:col-span-2">
+        <label htmlFor="observacoes" className="text-sm font-medium text-gray-700 mb-1">Observações</label>
+        <textarea
+          name="observacoes"
+          id="observacoes"
+          placeholder="Alguma informação adicional?"
+          rows={4}
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <div className="flex flex-col md:col-span-2">
+        <label htmlFor="imagens" className="text-sm font-medium text-gray-700 mb-1">Imagens do veículo</label>
+        <input
+          type="file"
+          name="imagens[]"
+          id="imagens"
+          accept="image/*"
+          multiple
+          className="p-2 border border-gray-300 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+        />
+      </div>
+
+      <div className="md:col-span-2 text-center">
+        <button
+          type="submit"
+          className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200"
+        >
+          Enviar Proposta
+        </button>
+      </div>
+    </form>
+  </div>
 </section>
 
 <section className="py-12 bg-white text-center">
@@ -199,8 +333,8 @@ export default function Home({ testemunhos = [] }) {
 
 
             {/* Testemunhos */}
-<section className="py-12 bg-gray-600 text-center text-white">
-    <h2 className="text-2xl font-semibold mb-6">🚗 O que nossos clientes dizem?</h2>
+<section className="py-12 bg-gray-400 text-center text-white">
+    <h2 className="text-2xl font-semibold mb-6">🚗 Qual a opinião dos nossos clientes?</h2>
 
     {/* Formulário */}
     <form method="POST" action="/testemunhos" className="max-w-xl mx-auto space-y-4 mb-8 bg-white p-4 rounded shadow text-black">
@@ -219,6 +353,57 @@ export default function Home({ testemunhos = [] }) {
             </blockquote>
         ))}
     </div>
+    <footer className="bg-gray-900 text-white py-10 mt-12">
+  <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+    {/* Logo e descrição */}
+    <div>
+      <h3 className="text-xl font-bold mb-2">AutoTopCars</h3>
+      <p className="text-gray-400">A sua escolha de confiança para veículos novos e usados com garantia, qualidade e segurança.</p>
+    </div>
+
+    {/* Links úteis */}
+    <div>
+      <h4 className="text-lg font-semibold mb-3">Links Rápidos</h4>
+      <ul className="space-y-2 text-gray-300">
+        <li><a href="/" className="hover:text-white">Início</a></li>
+        <li><a href="#simulador" className="hover:text-white">Simulador de Crédito</a></li>
+        <li><a href="#retoma" className="hover:text-white">Entregar Veículo</a></li>
+        <li><a href="#servicos" className="hover:text-white">Serviços</a></li>
+      </ul>
+    </div>
+
+    {/* Contactos */}
+    <div>
+      <h4 className="text-lg font-semibold mb-3">Contacto</h4>
+      <ul className="text-gray-300 space-y-2">
+        <li>📍 Rua do Exemplo, Lisboa</li>
+        <li>📞 935 920 018</li>
+        <li>✉️ geral@autotopcars.pt</li>
+      </ul>
+    </div>
+
+    {/* Redes sociais */}
+    <div>
+      <h4 className="text-lg font-semibold mb-3">Siga-nos</h4>
+      <div className="flex space-x-4 mt-2">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
+          <i className="fab fa-facebook fa-lg"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
+          <i className="fab fa-instagram fa-lg"></i>
+        </a>
+        <a href="https://wa.me/935920018" target="_blank" rel="noopener noreferrer" className="hover:text-green-500">
+          <i className="fab fa-whatsapp fa-lg"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {/* Direitos Autorais */}
+  <div className="mt-10 border-t border-gray-700 pt-4 text-center text-gray-500 text-sm">
+    © {new Date().getFullYear()} XioteCar. Todos os direitos reservados.
+  </div>
+</footer>
 </section>
 
             {/* Botão Flutuante WhatsApp */}
@@ -227,7 +412,9 @@ export default function Home({ testemunhos = [] }) {
             </a>
         </PublicLayout>
     );
+    
 }
+
 
 // Função JS para calcular o crédito
 function handleSimuladorSubmit(e) {

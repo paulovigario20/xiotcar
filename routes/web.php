@@ -62,6 +62,8 @@ Route::get('/dashboard/retomas', [RetomaController::class, 'index'])->middleware
 Route::get('/dashboard', [RetomaController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 
+Route::get('/contacto', fn () => Inertia::render('Site/Contacto'))->name('contacto');
+
 Route::post('/testemunhos', [TestemunhoController::class, 'store']);
 
 require __DIR__.'/auth.php';
