@@ -27,6 +27,13 @@ class CarController extends Controller
     ]);
 }
 
+public function show(Car $car)
+{
+    return inertia('CarroDetalhes', [
+        'carro' => $car->load('brand'),
+    ]);
+}
+
 public function store(Request $request)
 {
     // Validar os dados

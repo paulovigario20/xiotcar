@@ -20,7 +20,6 @@ export default function Home({ testemunhos = [] }) {
             <section className="bg-cover bg-center text-white py-20 px-6" style={{ backgroundImage: "url('/logos/logo.jpeg')" }}>
     <div className="max-w-3xl mx-auto text-center p-8">
         <h1 className="text-4xl font-bold mb-4">Encontre o Veículo dos seus Sonhos</h1>
-        <p className="mb-6">Escolha entre uma seleção variada de veículos.</p>
         
     </div>
 </section>
@@ -357,7 +356,7 @@ export default function Home({ testemunhos = [] }) {
   <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
     {/* Logo e descrição */}
     <div>
-      <h3 className="text-xl font-bold mb-2">AutoTopCars</h3>
+      <h3 className="text-xl font-bold mb-2">XioteCar</h3>
       <p className="text-gray-400">A sua escolha de confiança para veículos novos e usados com garantia, qualidade e segurança.</p>
     </div>
 
@@ -378,7 +377,7 @@ export default function Home({ testemunhos = [] }) {
       <ul className="text-gray-300 space-y-2">
         <li>📍 Rua do Exemplo, Lisboa</li>
         <li>📞 935 920 018</li>
-        <li>✉️ geral@autotopcars.pt</li>
+        <li>✉️ xiotecar@gmail.com</li>
       </ul>
     </div>
 
@@ -386,10 +385,10 @@ export default function Home({ testemunhos = [] }) {
     <div>
       <h4 className="text-lg font-semibold mb-3">Siga-nos</h4>
       <div className="flex space-x-4 mt-2">
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
+        <a href="https://www.facebook.com/xiotecar?locale=pt_PT" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
           <i className="fab fa-facebook fa-lg"></i>
         </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
+        <a href="https://www.instagram.com/xiotecar_stand_auto_azeitao/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
           <i className="fab fa-instagram fa-lg"></i>
         </a>
         <a href="https://wa.me/935920018" target="_blank" rel="noopener noreferrer" className="hover:text-green-500">

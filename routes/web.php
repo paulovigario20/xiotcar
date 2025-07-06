@@ -61,6 +61,7 @@ Route::post('/retomas', [RetomaController::class, 'store']);
 Route::get('/dashboard/retomas', [RetomaController::class, 'index'])->middleware(['auth', 'admin']);
 Route::get('/dashboard', [RetomaController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
+Route::get('/carros/{car}', [CarController::class, 'show'])->name('carros.show');
 
 Route::get('/contacto', fn () => Inertia::render('Site/Contacto'))->name('contacto');
 

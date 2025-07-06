@@ -6,7 +6,7 @@ export default function Contacto() {
     <PublicLayout>
       <Head title="Contacto" />
 
-      <section className="bg-blue-600 text-white py-16 text-center">
+      <section className="bg-gray-600 text-white py-16 text-center">
         <h1 className="text-4xl font-bold mb-4">Fale Connosco</h1>
         <p className="text-lg">Tem dúvidas? Precisa de ajuda? Estamos aqui para si.</p>
       </section>
@@ -60,8 +60,8 @@ export default function Contacto() {
           <div className="bg-gray-50 p-6 rounded shadow">
             <h2 className="text-2xl font-semibold mb-4">📍 Contactos</h2>
             <ul className="space-y-3 text-gray-700">
-              <li><strong>Morada:</strong> Rua Exemplo, 123, Lisboa</li>
-              <li><strong>Email:</strong> geral@autotopcars.pt</li>
+              <li><strong>Morada:</strong> Rua Exemplo, 123, Quinta do Conde</li>
+              <li><strong>Email:</strong> geral@xiotecar.pt</li>
               <li><strong>Telefone:</strong> +351 912 345 678</li>
               <li><strong>Horário:</strong> Seg-Sex: 9h - 18h</li>
             </ul>

@@ -3,8 +3,34 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Car extends Model
 {
-    //
+    use SoftDeletes;
+
+    protected $fillable = [
+        'brand_id',
+        'model',
+        'year',
+        'price',
+        'description',
+        'image',
+        'is_sold',
+        'kilometers',
+        'fuel',
+        'transmission',
+        'power',
+        'features',
+    ];
+
+    protected $casts = [
+        'features' => 'array',
+        'is_sold' => 'boolean',
+    ];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }
