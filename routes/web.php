@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\RetomaController;
 use App\Http\Controllers\TestemunhoController;
+use App\Http\Controllers\ContactoController;
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -63,7 +64,8 @@ Route::get('/dashboard', [RetomaController::class, 'index'])->middleware(['auth'
 
 Route::get('/carros/{car}', [CarController::class, 'show'])->name('carros.show');
 
-Route::get('/contacto', fn () => Inertia::render('Site/Contacto'))->name('contacto');
+Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto.index');
+Route::post('/contacto', [ContactoController::class, 'store'])->name('contacto.store');
 
 Route::post('/testemunhos', [TestemunhoController::class, 'store']);
 
