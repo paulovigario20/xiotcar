@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  xiotecar:
+    build: .
+    container_name: xiotecar
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./data/database:/app/database
+      - ./data/storage:/app/storage/app/public
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false

@@ -1,0 +1,6 @@
+[install]
+cache = "/workspace/tmp/bun-cache"
+globalDir = "/workspace/tmp/bun-global"
+
+[install.lockfile]
+savePath = "bun.lockb"

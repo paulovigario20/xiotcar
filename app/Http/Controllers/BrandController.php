@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -6,40 +6,58 @@ use App\Models\Brand;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
-
 class BrandController extends Controller
 {
     public function index()
     {
+        $brands = Brand::withCount('cars')->get();
         return Inertia::render('Brands/Index', [
-            'brands' => Brand::all()
+            'brands' => $brands,
         ]);
     }
+
     public function create()
-{
-    return Inertia::render('Brands/Create');
-}
-
-public function store(Request $request)
-{
-    // Validar os dados da requisição
-    $request->validate([
-        'name' => 'required|string|max:255',
-    ]);
-
-    // Criar a marca
-    try {
-        Brand::create([
-            'name' => $request->name,
-        ]);
-    } catch (\Exception $e) {
-        // Logar o erro para diagnóstico
-        \Log::error("Erro ao criar marca: " . $e->getMessage());
-        return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao adicionar a marca.']);
+    {
+        return Inertia::render('Brands/Create');
     }
 
-    // Redirecionar para a lista de marcas
-    return redirect()->route('brands.index');
-}
-}
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:brands,name',
+            'logo_url' => 'nullable|string|max:255',
+        ]);
 
+        Brand::create($request->only('name', 'logo_url'));
+
+        return redirect()->route('brands.index');
+    }
+
+    public function edit(Brand $brand)
+    {
+        return Inertia::render('Brands/Edit', [
+            'brand' => $brand,
+        ]);
+    }
+
+    public function update(Request $request, Brand $brand)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:brands,name,' . $brand->id,
+            'logo_url' => 'nullable|string|max:255',
+        ]);
+
+        $brand->update($request->only('name', 'logo_url'));
+
+        return redirect()->route('brands.index');
+    }
+
+    public function destroy(Brand $brand)
+    {
+        if ($brand->cars()->count() > 0) {
+            return back()->withErrors(['error' => 'Não é possível eliminar uma marca com carros associados.']);
+        }
+        $brand->delete();
+        return redirect()->route('brands.index');
+    }
+}

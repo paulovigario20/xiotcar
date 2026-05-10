@@ -46,12 +46,22 @@ Route::middleware('auth')->group(function () {
 
 /**
  * ROTAS PARA CARROS**/
-Route::get('/cars/create', [CarController::class, 'create'])->name('cars.create');
-Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cars/create', [CarController::class, 'create'])->name('cars.create');
+    Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
+    Route::get('/cars/{car}/edit', [CarController::class, 'edit'])->name('cars.edit');
+    Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
+    Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
+});
 
 
-Route::get('/brands/create', [BrandController::class, 'create'])->name('brands.create');
-Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/brands/create', [BrandController::class, 'create'])->name('brands.create');
+    Route::post('/brands', [BrandController::class, 'store'])->name('brands.store');
+    Route::get('/brands/{brand}/edit', [BrandController::class, 'edit'])->name('brands.edit');
+    Route::put('/brands/{brand}', [BrandController::class, 'update'])->name('brands.update');
+    Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('brands.destroy');
+});
 
 
 Route::get('/', [SiteController::class, 'home'])->name('site.home');
@@ -64,8 +74,8 @@ Route::get('/dashboard', [RetomaController::class, 'index'])->middleware(['auth'
 
 Route::get('/carros/{car}', [CarController::class, 'show'])->name('carros.show');
 
-Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto.index');
-Route::post('/contacto', [ContactoController::class, 'store'])->name('contacto.store');
+Route::get('/contacto', [ContactoController::class, 'index'])->name('Contacto.index');
+Route::post('/contacto', [ContactoController::class, 'store'])->name('Contacto.store');
 
 Route::post('/testemunhos', [TestemunhoController::class, 'store']);
 

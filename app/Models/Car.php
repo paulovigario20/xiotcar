@@ -12,20 +12,26 @@ class Car extends Model
     protected $fillable = [
         'brand_id',
         'model',
+        'version',
         'year',
         'price',
         'description',
         'image',
+        'extra_photos',
         'is_sold',
         'kilometers',
         'fuel',
         'transmission',
         'power',
+        'color',
+        'doors',
+        'engine_capacity',
         'features',
     ];
 
     protected $casts = [
         'features' => 'array',
+        'extra_photos' => 'array',
         'is_sold' => 'boolean',
     ];
 

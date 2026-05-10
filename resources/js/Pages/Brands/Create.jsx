@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
@@ -10,7 +9,7 @@ export default function CreateBrand() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('brands.store'));
+        post('/brands');
     };
 
     return (
@@ -19,39 +18,27 @@ export default function CreateBrand() {
         >
             <Head title="Adicionar Marca" />
 
-            <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div className="py-12 max-w-xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white shadow rounded-lg p-6">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                                Nome da Marca
-                            </label>
-                            <input
-                                id="name"
-                                type="text"
-                                value={data.name}
-                                onChange={(e) => setData('name', e.target.value)}
+                            <label className="block text-sm font-medium text-gray-700">Nome da marca *</label>
+                            <input type="text" value={data.name} onChange={(e) => setData('name', e.target.value)}
                                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-                            />
+                                placeholder="Ex: BMW, Mercedes-Benz, Polestar..." />
                             {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
                         </div>
 
-                        <div>
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className="w-full py-2 px-4 bg-green-600 text-white rounded hover:bg-green-700"
-                            >
-                                {processing ? 'Criando Marca...' : 'Criar Marca'}
+                        <div className="flex gap-4">
+                            <button type="submit" disabled={processing}
+                                className="py-2 px-6 bg-green-600 text-white rounded hover:bg-green-700 transition">
+                                {processing ? 'A guardar...' : 'Criar Marca'}
                             </button>
+                            <Link href="/brands" className="py-2 px-6 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">
+                                Voltar
+                            </Link>
                         </div>
                     </form>
-
-                    <div className="mt-4">
-                        <Link href="/brands" className="text-blue-500 hover:text-blue-700">
-                            Voltar à lista de marcas
-                        </Link>
-                    </div>
                 </div>
             </div>
         </AuthenticatedLayout>

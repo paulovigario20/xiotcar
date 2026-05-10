@@ -2,57 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Retoma;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RetomaSubmetida;
+use App\Models\Retoma;
+use App\Models\Car;
+use App\Models\Brand;
+use App\Models\User;
 use Inertia\Inertia;
-
 
 class RetomaController extends Controller
 {
-    public function store(Request $request)
-{
-    $data = $request->validate([
-        'marca' => 'required|string|max:255',
-        'modelo' => 'required|string|max:255',
-        'ano' => 'required|integer',
-        'quilometragem' => 'required|integer',
-        'contacto' => 'required|string|max:255',
-        'observacoes' => 'nullable|string',
-        'imagens.*' => 'nullable|image|max:2048',
-    ]);
-
-    // Cria a retoma
-    $retoma = Retoma::create($data);
-
-    // Se houver imagens
-    if ($request->hasFile('imagens')) {
-        foreach ($request->file('imagens') as $imagem) {
-            $path = $imagem->store('retomas', 'public');
-            $retoma->imagens = $retoma->imagens 
-                ? array_merge(json_decode($retoma->imagens, true), [$path]) 
-                : [$path];
-        }
-        $retoma->imagens = json_encode($retoma->imagens);
-        $retoma->save();
-    }
-
-    return redirect()->back()->with('success', 'Retoma enviada com sucesso!');
-}
-
     public function index()
     {
-        $retomas = Retoma::latest()->get();
-    
-        return Inertia::render('Dashboard', [
-            'retomas' => $retomas,
+        $retomas = Retoma::orderBy("created_at", "desc")->get();
+        return Inertia::render("Dashboard", [
+            "retomas" => $retomas,
+            "carsCount" => Car::count(),
+            "brandsCount" => Brand::count(),
+            "usersCount" => User::count(),
         ]);
     }
 
-    public function marcarComoLida(Retoma $retoma)
+    public function store(Request $request)
     {
-        $retoma->update(['lida' => true]);
+        $data = $request->validate([
+            'marca' => 'required|string',
+            'modelo' => 'required|string',
+            'ano' => 'required|integer',
+            'km' => 'required|integer',
+            'combustivel' => 'required|string',
+            'telefone' => 'required|string',
+            'observacoes' => 'nullable|string',
+            'fotos.*' => 'nullable|image|max:5000'
+        ]);
 
-        return redirect()->back()->with('success', 'Retoma marcada como lida.');
+        $paths = [];
+        if ($request->hasFile('fotos')) {
+            foreach ($request->file('fotos') as $foto) {
+                $paths[] = $foto->store('retomas');
+            }
+        }
+
+        $data['fotos'] = $paths;
+
+        Mail::to('iuricalado310@gmail.com')->send(new RetomaSubmetida($data));
+
+        return back()->with('success', 'Pedido de retoma enviado com sucesso!');
     }
 }

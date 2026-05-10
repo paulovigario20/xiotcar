@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ContactoController extends Controller
 {
     public function index()
     {
-        return view('contacto');
+        return Inertia::render('Site/Contacto');
     }
 
     public function store(Request $request)
@@ -19,9 +20,6 @@ class ContactoController extends Controller
             'mensagem' => 'required|string',
         ]);
 
-        // Aqui podes enviar por email ou guardar na BD
-        // Mail::to('teuemail@exemplo.com')->send(new ContactFormMail($request->all()));
-
-        return redirect()->route('contacto.index')->with('success', 'Mensagem enviada com sucesso!');
+        return redirect()->route('Contacto.index')->with('success', 'Mensagem enviada com sucesso!');
     }
 }
