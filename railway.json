@@ -4,8 +4,10 @@
     "builder": "dockerfile"
   },
   "deploy": {
-    "numReplicas": 1,
-    "restartPolicyType": "always",
-    "restartPolicyMaxRetries": 10
+    "startCommand": "apache2-foreground",
+    "healthchecks": {
+      "readiness": "/",
+      "liveness": "/"
+    }
   }
 }
