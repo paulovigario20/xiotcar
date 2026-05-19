@@ -34,9 +34,10 @@ RUN mkdir -p /var/www/html/database /var/www/html/storage/app/public/cars \
 RUN cp .env.example .env && \
     php artisan key:generate
 
-# Configurar Nginx
-RUN mkdir -p /etc/nginx/sites-available
-RUN cat > /etc/nginx/sites-available/default <<'EOF'
+# Desabilitar site padrão e criar config Nginx
+RUN rm -f /etc/nginx/sites-enabled/default && \
+    mkdir -p /etc/nginx/sites-enabled && \
+    cat > /etc/nginx/sites-enabled/default <<'NGINX_CONF'
 server {
     listen 80;
     server_name _;
@@ -58,13 +59,11 @@ server {
         deny all;
     }
 }
-EOF
-
-# Criar diretório de supervisor
-RUN mkdir -p /etc/supervisor/conf.d
+NGINX_CONF
 
 # Criar arquivo de configuração do Supervisor
-RUN cat > /etc/supervisor/conf.d/supervisord.conf <<'EOF'
+RUN mkdir -p /etc/supervisor/conf.d && \
+    cat > /etc/supervisor/conf.d/supervisord.conf <<'SUPERVISOR_CONF'
 [supervisord]
 nodaemon=true
 logfile=/var/log/supervisord.log
@@ -83,7 +82,7 @@ autostart=true
 autorestart=true
 stderr_logfile=/var/log/nginx.err.log
 stdout_logfile=/var/log/nginx.out.log
-EOF
+SUPERVISOR_CONF
 
 EXPOSE 80
 
