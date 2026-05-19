@@ -49,7 +49,7 @@ server {
     }
 
     location ~ \.php$ {
-        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_pass unix:/var/run/php-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         include fastcgi_params;
@@ -61,20 +61,39 @@ server {
 }
 NGINX_CONF
 
+# Configurar PHP-FPM para usar socket Unix
+RUN mkdir -p /var/run/php && \
+    cat > /usr/local/etc/php-fpm.d/www.conf <<'PHP_CONF'
+[www]
+user = www-data
+group = www-data
+listen = /var/run/php-fpm.sock
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0666
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+PHP_CONF
+
 # Criar arquivo de configuração do Supervisor
 RUN mkdir -p /etc/supervisor/conf.d && \
     cat > /etc/supervisor/conf.d/supervisord.conf <<'SUPERVISOR_CONF'
 [supervisord]
 nodaemon=true
+user=root
 logfile=/var/log/supervisord.log
 pidfile=/var/run/supervisord.pid
 
 [program:php-fpm]
-command=/usr/local/sbin/php-fpm
+command=/usr/local/sbin/php-fpm -F
 autostart=true
 autorestart=true
 stderr_logfile=/var/log/php-fpm.err.log
 stdout_logfile=/var/log/php-fpm.out.log
+user=root
 
 [program:nginx]
 command=/usr/sbin/nginx -g "daemon off;"
