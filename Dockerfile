@@ -36,7 +36,7 @@ RUN cp .env.example .env && \
 
 # Configurar Nginx
 RUN mkdir -p /etc/nginx/sites-available
-COPY - /etc/nginx/sites-available/default <<'EOF'
+RUN cat > /etc/nginx/sites-available/default <<'EOF'
 server {
     listen 80;
     server_name _;
