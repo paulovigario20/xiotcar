@@ -34,24 +34,7 @@ RUN mkdir -p /var/www/html/database /var/www/html/storage/app/public/cars \
 RUN cp .env.example .env && \
     php artisan key:generate
 
-# Configurar PHP-FPM para usar socket Unix
-RUN mkdir -p /var/run/php-fpm && \
-    cat > /usr/local/etc/php-fpm.d/www.conf <<'PHP_FPM_CONF'
-[www]
-user = www-data
-group = www-data
-listen = /var/run/php-fpm/www.sock
-listen.owner = www-data
-listen.group = www-data
-listen.mode = 0666
-pm = dynamic
-pm.max_children = 5
-pm.start_servers = 2
-pm.min_spare_servers = 1
-pm.max_spare_servers = 3
-PHP_FPM_CONF
-
-# Desabilitar site padrão e criar config Nginx
+# Criar config Nginx
 RUN rm -f /etc/nginx/sites-enabled/default && \
     mkdir -p /etc/nginx/sites-enabled && \
     cat > /etc/nginx/sites-enabled/default <<'NGINX_CONF'
@@ -66,7 +49,7 @@ server {
     }
 
     location ~ \.php$ {
-        fastcgi_pass unix:/var/run/php-fpm/www.sock;
+        fastcgi_pass 127.0.0.1:9000;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         include fastcgi_params;
@@ -91,14 +74,15 @@ pidfile=/var/run/supervisord.pid
 command=/usr/local/sbin/php-fpm -F
 autostart=true
 autorestart=true
+user=root
 stderr_logfile=/var/log/php-fpm.err.log
 stdout_logfile=/var/log/php-fpm.out.log
-user=root
 
 [program:nginx]
 command=/usr/sbin/nginx -g "daemon off;"
 autostart=true
 autorestart=true
+user=root
 stderr_logfile=/var/log/nginx.err.log
 stdout_logfile=/var/log/nginx.out.log
 SUPERVISOR_CONF
