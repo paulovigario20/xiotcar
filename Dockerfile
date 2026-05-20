@@ -34,6 +34,24 @@ RUN mkdir -p /var/www/html/database /var/www/html/storage/app/public/cars \
 RUN cp .env.example .env && \
     php artisan key:generate
 
+# Configurar PHP-FPM para ouvir em TCP 127.0.0.1:9000
+RUN cat > /usr/local/etc/php-fpm.d/docker.conf <<'PHP_FPM_CONF'
+[www]
+listen = 127.0.0.1:9000
+listen.backlog = -1
+listen.owner = www-data
+listen.group = www-data
+user = www-data
+group = www-data
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+catch_workers_output = yes
+clear_env = no
+PHP_FPM_CONF
+
 # Criar config Nginx
 RUN rm -f /etc/nginx/sites-enabled/default && \
     mkdir -p /etc/nginx/sites-enabled && \
