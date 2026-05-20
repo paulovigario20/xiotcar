@@ -34,6 +34,28 @@ RUN mkdir -p /var/www/html/database /var/www/html/storage/app/public/cars \
 RUN cp .env.example .env && \
     php artisan key:generate
 
+# Preparar a aplicação antes de iniciar os serviços
+RUN cat > /usr/local/bin/start-container <<'START_CONTAINER'
+#!/bin/sh
+set -e
+
+mkdir -p /var/www/html/database \
+    /var/www/html/storage/app/public/cars \
+    /var/www/html/storage/framework/cache/data \
+    /var/www/html/storage/framework/sessions \
+    /var/www/html/storage/framework/views \
+    /var/www/html/storage/logs \
+    /var/www/html/bootstrap/cache
+
+touch /var/www/html/database/database.sqlite
+
+php artisan migrate --force
+chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
+
+exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+START_CONTAINER
+RUN chmod +x /usr/local/bin/start-container
+
 # Configurar PHP-FPM para ouvir em TCP 127.0.0.1:9000
 RUN cat > /usr/local/etc/php-fpm.d/docker.conf <<'PHP_FPM_CONF'
 [www]
@@ -107,4 +129,4 @@ SUPERVISOR_CONF
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/usr/local/bin/start-container"]
