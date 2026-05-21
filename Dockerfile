@@ -50,9 +50,13 @@ mkdir -p /var/www/html/database \
 touch /var/www/html/database/database.sqlite
 
 APP_PORT="${PORT:-80}"
-cat > /etc/nginx/sites-enabled/default <<NGINX_CONF
+case "$APP_PORT" in
+    ''|*[!0-9]*) APP_PORT=80 ;;
+esac
+
+cat > /etc/nginx/sites-enabled/default <<'NGINX_CONF'
 server {
-    listen ${APP_PORT};
+    listen __APP_PORT__;
     server_name _;
     root /var/www/html/public;
     index index.php;
@@ -73,6 +77,7 @@ server {
     }
 }
 NGINX_CONF
+sed -i "s/__APP_PORT__/${APP_PORT}/g" /etc/nginx/sites-enabled/default
 
 php artisan migrate --force
 chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
