@@ -49,40 +49,15 @@ mkdir -p /var/www/html/database \
 
 touch /var/www/html/database/database.sqlite
 
-APP_PORT="${PORT:-80}"
+APP_PORT="${PORT:-8080}"
 case "$APP_PORT" in
-    ''|*[!0-9]*) APP_PORT=80 ;;
+    ''|*[!0-9]*) APP_PORT=8080 ;;
 esac
-
-cat > /etc/nginx/sites-enabled/default <<'NGINX_CONF'
-server {
-    listen __APP_PORT__;
-    server_name _;
-    root /var/www/html/public;
-    index index.php;
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location ~ \.php$ {
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-        include fastcgi_params;
-    }
-
-    location ~ /\.ht {
-        deny all;
-    }
-}
-NGINX_CONF
-sed -i "s/__APP_PORT__/${APP_PORT}/g" /etc/nginx/sites-enabled/default
 
 php artisan migrate --force
 chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
 
-exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+exec php artisan serve --host=0.0.0.0 --port="$APP_PORT"
 START_CONTAINER
 RUN chmod +x /usr/local/bin/start-container
 
@@ -157,6 +132,6 @@ stderr_logfile=/var/log/nginx.err.log
 stdout_logfile=/var/log/nginx.out.log
 SUPERVISOR_CONF
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["/usr/local/bin/start-container"]
