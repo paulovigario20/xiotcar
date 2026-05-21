@@ -49,6 +49,31 @@ mkdir -p /var/www/html/database \
 
 touch /var/www/html/database/database.sqlite
 
+APP_PORT="${PORT:-80}"
+cat > /etc/nginx/sites-enabled/default <<NGINX_CONF
+server {
+    listen ${APP_PORT};
+    server_name _;
+    root /var/www/html/public;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+NGINX_CONF
+
 php artisan migrate --force
 chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
 
