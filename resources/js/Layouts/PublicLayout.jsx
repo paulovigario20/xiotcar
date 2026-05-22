@@ -12,8 +12,9 @@ export default function PublicLayout({ children }) {
                         <span><i className="fas fa-envelope mr-1"></i> geral@xiotecar.com</span>
                     </div>
                     <div className="flex gap-3">
-                        <a href="#" className="hover:text-white"><i className="fab fa-facebook-f"></i></a>
-                        <a href="#" className="hover:text-white"><i className="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook" className="hover:text-white"><i className="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram" className="hover:text-white"><i className="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/351912345678" aria-label="WhatsApp" className="hover:text-white"><i className="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
@@ -56,6 +57,37 @@ export default function PublicLayout({ children }) {
                             <li><i className="fas fa-phone mr-2 text-yellow-400"></i>+351 912 345 678</li>
                             <li><i className="fas fa-envelope mr-2 text-yellow-400"></i>geral@xiotecar.com</li>
                         </ul>
+                        <div className="mt-6">
+                            <h5 className="text-yellow-400 font-semibold text-sm uppercase tracking-wider mb-3">Siga-nos</h5>
+                            <div className="flex flex-wrap gap-3">
+                                <a
+                                    href="#"
+                                    aria-label="Facebook"
+                                    className="inline-flex items-center gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-sm text-gray-300 transition hover:bg-yellow-500 hover:text-black"
+                                >
+                                    <i className="fab fa-facebook-f text-lg"></i>
+                                    <span>Facebook</span>
+                                </a>
+                                <a
+                                    href="#"
+                                    aria-label="Instagram"
+                                    className="inline-flex items-center gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-sm text-gray-300 transition hover:bg-yellow-500 hover:text-black"
+                                >
+                                    <i className="fab fa-instagram text-lg"></i>
+                                    <span>Instagram</span>
+                                </a>
+                                <a
+                                    href="https://wa.me/351912345678"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="WhatsApp"
+                                    className="inline-flex items-center gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-sm text-gray-300 transition hover:bg-yellow-500 hover:text-black"
+                                >
+                                    <i className="fab fa-whatsapp text-lg"></i>
+                                    <span>WhatsApp</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Hours */}
