@@ -51,7 +51,7 @@ export default function PublicLayout({ children }) {
                     <div>
                         <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-10 mb-4 object-contain" />
                         <p className="text-gray-400 text-sm leading-relaxed">
-                            Fundado em 2018 em Azeitão, o grupo Xiotecar e Luís Tavares Automóveis é referência no comércio de automóveis multimarcas usados e semi-novos.
+                            Fundada em 2018 em Azeitão, a Xiotecar é referência no comércio de automóveis multimarcas usados e seminovos, com foco na confiança, qualidade e proximidade.
                         </p>
                     </div>
 

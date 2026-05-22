@@ -11,7 +11,7 @@ export default function Carros({ cars }) {
             <section className="bg-zinc-900 py-16">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h1 className="text-4xl font-bold text-white mb-4">Viaturas Disponíveis</h1>
-                    <p className="text-gray-400">Explore a nossa seleção de usados e semi-novos.</p>
+                    <p className="text-gray-400">Explore a nossa seleção de usados e seminovos.</p>
                     <div className="w-16 h-1 bg-yellow-400 mx-auto mt-4"></div>
                 </div>
             </section>

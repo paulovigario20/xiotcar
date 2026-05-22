@@ -17,26 +17,45 @@ export default function Sobre() {
 
             {/* Content */}
             <section className="bg-black py-16">
-                <div className="max-w-4xl mx-auto px-6">
-                    <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-10 space-y-6 text-gray-300 text-lg leading-relaxed">
-                        <p>
-                            Fundado em <strong className="text-white">2018</strong>, em <strong className="text-white">Azeitão</strong>, o grupo <span className="text-yellow-400 font-semibold">Xiotecar e Luís Tavares Automóveis</span> é hoje uma referência no comércio de automóveis multimarcas usados e semi-novos.
-                        </p>
-                        <p>
-                            Nasce da junção da <strong className="text-white">Luís Tavares Automóveis</strong>, com uma alta experiência no mercado automóvel desde <strong className="text-white">1995</strong>, e a recém-criada <strong className="text-white">Xiotecar</strong>. Aliando o saber e o querer.
-                        </p>
-                        <p>
-                            Temos ao dispor dos nossos clientes <strong className="text-white">dois pontos de venda</strong>, nomeadamente, em <strong className="text-white">Azeitão</strong> e <strong className="text-white">Covilhã</strong>.
-                        </p>
-                        <p>
-                            O nosso grupo é composto pelos seus altos padrões de ética de negócio, bem-estar e segurança dos colaboradores, clientes e fornecedores.
-                        </p>
-                        <p>
-                            Todos os dias os nossos colaboradores dão o seu melhor contributo para juntos alcançarem o grande objetivo desta empresa: <strong className="text-yellow-400">oferecer o melhor aos seus clientes</strong>.
-                        </p>
-                        <p>
-                            O cliente tem à sua disposição viaturas dos mais variados segmentos e um <strong className="text-white">serviço pós-venda de excelência</strong>. Na hora de comprar o seu novo automóvel, a Xiotecar e Luís Tavares Automóveis é o local a visitar.
-                        </p>
+                <div className="max-w-5xl mx-auto px-6">
+                    <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+                        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 lg:sticky lg:top-28">
+                            <span className="inline-flex items-center rounded-full bg-yellow-400/10 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-yellow-400">
+                                Desde 2018
+                            </span>
+                            <h2 className="mt-6 text-3xl font-bold leading-tight text-white">
+                                Confiança, qualidade e proximidade no mercado automóvel.
+                            </h2>
+                            <p className="mt-4 text-gray-400 leading-relaxed">
+                                A Xiotecar combina experiência, dedicação e inovação para oferecer um serviço completo em Azeitão.
+                            </p>
+                        </div>
+
+                        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 md:p-10 text-gray-300 text-lg leading-relaxed">
+                            <div className="space-y-6">
+                                <p>
+                                    Fundada em <strong className="text-white">2018</strong>, em <strong className="text-white">Azeitão</strong>, a <span className="text-yellow-400 font-semibold">Xiotecar</span> é hoje uma referência no comércio de automóveis multimarcas usados e seminovos.
+                                </p>
+                                <p>
+                                    Com uma forte presença no mercado automóvel, a Xiotecar destaca-se pela <strong className="text-white">confiança</strong>, <strong className="text-white">qualidade</strong> e <strong className="text-white">profissionalismo</strong> no atendimento aos seus clientes, aliando experiência, dedicação e inovação em cada negócio.
+                                </p>
+                                <p>
+                                    Atualmente, o grupo é constituído pelas empresas <strong className="text-white">Xiotecar Unipessoal Lda</strong>, <strong className="text-white">JBBC Unipessoal Lda</strong> e <strong className="text-white">XD Unipessoal Lda</strong>, reforçando diariamente a sua posição no setor automóvel através de um serviço de excelência e de uma relação de proximidade com os seus clientes.
+                                </p>
+                                <p>
+                                    Recentemente, o grupo juntou também a <strong className="text-yellow-400">Garage-Wash</strong>, ampliando assim a sua oferta de serviços e proporcionando uma experiência ainda mais completa aos seus clientes.
+                                </p>
+                                <p>
+                                    A nossa empresa rege-se por elevados padrões de <strong className="text-white">ética</strong>, <strong className="text-white">transparência</strong> e <strong className="text-white">compromisso</strong>, promovendo o bem-estar e a segurança de colaboradores, clientes e parceiros.
+                                </p>
+                                <p>
+                                    Todos os dias, a nossa equipa dá o seu melhor contributo para alcançar o principal objetivo da Xiotecar: <strong className="text-yellow-400">oferecer um serviço de excelência e garantir a máxima satisfação dos seus clientes</strong>.
+                                </p>
+                                <p>
+                                    O cliente tem à sua disposição viaturas dos mais variados segmentos, bem como um <strong className="text-white">serviço pós-venda de excelência</strong>. Na hora de comprar o seu novo automóvel, a Xiotecar, em Azeitão, é o local certo para visitar.
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
