@@ -75,11 +75,11 @@ export default function Contacto() {
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <i className="fas fa-envelope text-yellow-400 mt-1"></i>
-                                    <span>geral@xiotecar.com</span>
+                                    <span>xiotecar@gmail.com</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <i className="fas fa-phone text-yellow-400 mt-1"></i>
-                                    <span>+351 912 345 678</span>
+                                    <span>+351 933 188 588</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <i className="fas fa-clock text-yellow-400 mt-1"></i>

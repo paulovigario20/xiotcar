@@ -276,7 +276,7 @@ export default function Home({ testemunhos = [] }) {
                         <a href="/contacto" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-8 py-3 rounded-lg transition">
                             <i className="fas fa-envelope mr-2"></i> Enviar Mensagem
                         </a>
-                        <a href="tel:+351912345678" className="inline-block border border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black font-semibold px-8 py-3 rounded-lg transition">
+                        <a href="tel:+351933188588" className="inline-block border border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black font-semibold px-8 py-3 rounded-lg transition">
                             <i className="fas fa-phone mr-2"></i> Ligar Agora
                         </a>
                     </div>

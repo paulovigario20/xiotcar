@@ -55,6 +55,7 @@ case "$APP_PORT" in
 esac
 
 php artisan migrate --force
+php artisan db:seed --force
 chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
 
 exec php artisan serve --host=0.0.0.0 --port="$APP_PORT"

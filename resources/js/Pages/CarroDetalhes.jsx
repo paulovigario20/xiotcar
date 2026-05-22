@@ -3,10 +3,15 @@ import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+const vehicleImage = (path) => {
+    if (!path) return null;
+    return path.startsWith('http') || path.startsWith('/') ? path : `/storage/${path}`;
+};
+
 export default function CarroDetalhes({ carro }) {
     const allPhotos = [
-        carro.image ? `/storage/${carro.image}` : null,
-        ...(carro.extra_photos || []).map(p => `/storage/${p}`),
+        vehicleImage(carro.image),
+        ...(carro.extra_photos || []).map(vehicleImage),
     ].filter(Boolean);
 
     const [activePhoto, setActivePhoto] = useState(allPhotos[0] || null);
@@ -126,17 +131,17 @@ export default function CarroDetalhes({ carro }) {
                             {carro.description && (
                                 <div className="mb-8">
                                     <h3 className="text-white font-semibold mb-2">Descrição</h3>
-                                    <p className="text-gray-400 leading-relaxed">{carro.description}</p>
+                                    <p className="text-gray-400 leading-relaxed whitespace-pre-line">{carro.description}</p>
                                 </div>
                             )}
 
                             {/* CTA */}
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <a href="https://wa.me/935920018" target="_blank"
+                                <a href="https://wa.me/351933188588" target="_blank"
                                     className="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-3 rounded-lg text-center transition">
                                     <i className="fab fa-whatsapp mr-2"></i> WhatsApp
                                 </a>
-                                <a href="tel:+351935920018"
+                                <a href="tel:+351933188588"
                                     className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg text-center transition">
                                     <i className="fas fa-phone mr-2"></i> Ligar
                                 </a>

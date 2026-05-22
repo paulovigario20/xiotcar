@@ -62,7 +62,7 @@ export default function Sobre() {
                         <Link href="/carros" className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-8 py-3 rounded-lg text-center transition">
                             <i className="fas fa-car mr-2"></i> Ver Viaturas
                         </Link>
-                        <a href="https://wa.me/935920018" target="_blank" className="bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-3 rounded-lg text-center transition">
+                        <a href="https://wa.me/351933188588" target="_blank" className="bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-3 rounded-lg text-center transition">
                             <i className="fab fa-whatsapp mr-2"></i> Falar no WhatsApp
                         </a>
                     </div>

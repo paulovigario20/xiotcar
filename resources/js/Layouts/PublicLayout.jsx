@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 const socialLinks = {
     facebook: 'https://www.facebook.com/xiotecar?locale=pt_PT',
     instagram: 'https://www.instagram.com/xiotecar_stand_auto_azeitao/',
-    whatsapp: 'https://wa.me/+351933188588',
+    whatsapp: 'https://wa.me/351933188588',
 };
 
 export default function PublicLayout({ children }) {
@@ -14,8 +14,8 @@ export default function PublicLayout({ children }) {
             <div className="bg-zinc-900 border-b border-zinc-800 text-sm text-gray-400 py-2 px-6">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex gap-4">
-                        <span><i className="fas fa-phone mr-1"></i> +351 912 345 678</span>
-                        <span><i className="fas fa-envelope mr-1"></i> geral@xiotecar.com</span>
+                        <span><i className="fas fa-phone mr-1"></i> +351 933 188 588</span>
+                        <span><i className="fas fa-envelope mr-1"></i> xiotecar@gmail.com</span>
                     </div>
                     <div className="flex gap-3">
                         <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-white"><i className="fab fa-facebook-f"></i></a>
@@ -60,8 +60,8 @@ export default function PublicLayout({ children }) {
                         <h4 className="text-yellow-400 font-semibold text-sm uppercase tracking-wider mb-4">Contacto</h4>
                         <ul className="text-gray-400 text-sm space-y-2">
                             <li><i className="fas fa-map-marker-alt mr-2 text-yellow-400"></i>Azeitão, Setúbal</li>
-                            <li><i className="fas fa-phone mr-2 text-yellow-400"></i>+351 912 345 678</li>
-                            <li><i className="fas fa-envelope mr-2 text-yellow-400"></i>geral@xiotecar.com</li>
+                            <li><i className="fas fa-phone mr-2 text-yellow-400"></i>+351 933 188 588</li>
+                            <li><i className="fas fa-envelope mr-2 text-yellow-400"></i>xiotecar@gmail.com</li>
                         </ul>
                         <div className="mt-6">
                             <h5 className="text-yellow-400 font-semibold text-sm uppercase tracking-wider mb-3">Siga-nos</h5>

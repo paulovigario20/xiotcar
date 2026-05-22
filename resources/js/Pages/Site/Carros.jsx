@@ -2,6 +2,11 @@ import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+const vehicleImage = (path) => {
+    if (!path) return null;
+    return path.startsWith('http') || path.startsWith('/') ? path : `/storage/${path}`;
+};
+
 export default function Carros({ cars }) {
     return (
         <PublicLayout>
@@ -27,7 +32,7 @@ export default function Carros({ cars }) {
                                 {/* Image */}
                                 <div className="h-52 bg-zinc-800 overflow-hidden">
                                     {car.image ? (
-                                        <img src={`/storage/${car.image}`} alt={`${car.brand?.name} ${car.model}`}
+                                        <img src={vehicleImage(car.image)} alt={`${car.brand?.name} ${car.model}`}
                                             className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-gray-600">
