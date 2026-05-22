@@ -1,6 +1,12 @@
 import { Link } from '@inertiajs/react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+const socialLinks = {
+    facebook: 'https://www.facebook.com/xiotecar?locale=pt_PT',
+    instagram: 'https://www.instagram.com/xiotecar_stand_auto_azeitao/',
+    whatsapp: 'https://wa.me/+351933188588',
+};
+
 export default function PublicLayout({ children }) {
     return (
         <div className="min-h-screen bg-black font-sans text-white">
@@ -12,9 +18,9 @@ export default function PublicLayout({ children }) {
                         <span><i className="fas fa-envelope mr-1"></i> geral@xiotecar.com</span>
                     </div>
                     <div className="flex gap-3">
-                        <a href="#" aria-label="Facebook" className="hover:text-white"><i className="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram" className="hover:text-white"><i className="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/351912345678" aria-label="WhatsApp" className="hover:text-white"><i className="fab fa-whatsapp"></i></a>
+                        <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-white"><i className="fab fa-facebook-f"></i></a>
+                        <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-white"><i className="fab fa-instagram"></i></a>
+                        <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:text-white"><i className="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
@@ -61,7 +67,9 @@ export default function PublicLayout({ children }) {
                             <h5 className="text-yellow-400 font-semibold text-sm uppercase tracking-wider mb-3">Siga-nos</h5>
                             <div className="flex flex-wrap gap-3">
                                 <a
-                                    href="#"
+                                    href={socialLinks.facebook}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label="Facebook"
                                     className="inline-flex items-center gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-sm text-gray-300 transition hover:bg-yellow-500 hover:text-black"
                                 >
@@ -69,7 +77,9 @@ export default function PublicLayout({ children }) {
                                     <span>Facebook</span>
                                 </a>
                                 <a
-                                    href="#"
+                                    href={socialLinks.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label="Instagram"
                                     className="inline-flex items-center gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-sm text-gray-300 transition hover:bg-yellow-500 hover:text-black"
                                 >
@@ -77,7 +87,7 @@ export default function PublicLayout({ children }) {
                                     <span>Instagram</span>
                                 </a>
                                 <a
-                                    href="https://wa.me/351912345678"
+                                    href={socialLinks.whatsapp}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="WhatsApp"
