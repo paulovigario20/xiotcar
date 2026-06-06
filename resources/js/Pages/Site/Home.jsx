@@ -26,11 +26,11 @@ export default function Home({ testemunhos = [] }) {
     };
 
     const heroImages = [
-        '/imgs/wp/hero-car-1.png',
-        '/imgs/wp/hero-car-2.png',
-        '/imgs/wp/hero-car-3.png',
-        '/imgs/wp/hero-car-4.png',
-        '/imgs/wp/hero-car-5.png',
+        '/imgs/wp/hero-car-1.jpg',
+        '/imgs/wp/hero-car-2.jpg',
+        '/imgs/wp/hero-car-3.jpg',
+        '/imgs/wp/hero-car-4.jpg',
+        '/imgs/wp/hero-car-5.jpg',
     ];
 
     const brands = [
@@ -109,19 +109,19 @@ export default function Home({ testemunhos = [] }) {
                                 icon: 'fas fa-handshake',
                                 title: 'Compra e Venda',
                                 desc: 'Compra e venda de automóveis usados multimarcas, rigorosamente selecionados, com garantia e transparência total.',
-                                img: '/imgs/wp/service-vendas.png',
+                                img: '/imgs/wp/service-vendas.jpg',
                             },
                             {
                                 icon: 'fas fa-file-invoice-dollar',
                                 title: 'Financiamento',
                                 desc: 'Financiamento automóvel personalizado, aceitação de retomas e apoio em toda a burocracia associada à compra.',
-                                img: '/imgs/wp/service-financiamento.png',
+                                img: '/imgs/wp/service-financiamento.jpg',
                             },
                             {
                                 icon: 'fas fa-exchange-alt',
                                 title: 'Retomas',
                                 desc: 'Avaliação justa e imediata da sua viatura atual. Simplificamos a troca para que conduza o carro que sempre quis.',
-                                img: null,
+                                img: '/imgs/wp/service-retomas.jpg',
                             },
                         ].map((svc, i) => (
                             <div key={i} className="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-yellow-500/30 transition group">
