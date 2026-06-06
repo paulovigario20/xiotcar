@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $this->call(OlxVehicleSeeder::class);
+        // Viaturas sincronizadas via `php artisan olx:sync` no arranque do container
     }
 }
