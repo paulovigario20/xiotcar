@@ -33,7 +33,7 @@ export default function Login({ status, canResetPassword }) {
                         <img
                             src="/logos/logo.jpeg"
                             alt="XioteCar"
-                            className="h-16 mb-3"
+                            className="h-16 w-auto max-w-full object-contain mb-3"
                         />
                         <h1 className="text-2xl font-bold text-red-600 text-center">
                             Bem-vindo à XioteCar
