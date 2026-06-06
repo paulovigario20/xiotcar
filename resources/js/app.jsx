@@ -7,7 +7,7 @@ import { createRoot } from 'react-dom/client';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'XiotCar';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

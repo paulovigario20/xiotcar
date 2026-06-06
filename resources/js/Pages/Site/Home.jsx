@@ -189,27 +189,55 @@ export default function Home({ testemunhos = [] }) {
                 </div>
             </section>
 
-            {/* ═══════ SIMULADOR DE CRÉDITO ═══════ */}
-            <section className="bg-zinc-900 py-16" id="simulador">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold text-white mb-2">
-                        <i className="fas fa-calculator text-yellow-400 mr-2"></i>
-                        Simulador de Crédito
-                    </h2>
-                    <p className="text-gray-400 mb-10">Descubra a sua mensalidade em segundos</p>
-
-                    <form onSubmit={handleSimuladorSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <input type="number" id="valor" placeholder="Valor do veículo (€)"
-                            className="p-3 bg-zinc-800 text-white border border-zinc-700 rounded-lg placeholder-gray-500 focus:border-yellow-500 focus:outline-none" />
-                        <input type="number" id="entrada" placeholder="Entrada (€)"
-                            className="p-3 bg-zinc-800 text-white border border-zinc-700 rounded-lg placeholder-gray-500 focus:border-yellow-500 focus:outline-none" />
-                        <input type="number" id="parcelas" placeholder="Nº parcelas"
-                            className="p-3 bg-zinc-800 text-white border border-zinc-700 rounded-lg placeholder-gray-500 focus:border-yellow-500 focus:outline-none" />
-                        <button className="bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition">
-                            Calcular
-                        </button>
-                    </form>
-                    <p id="result" className="mt-6 text-xl font-bold text-yellow-400"></p>
+            {/* ═══════ FINANCIAMENTO ═══════ */}
+            <section className="bg-zinc-900 py-16" id="financiamento">
+                <div className="max-w-5xl mx-auto px-6">
+                    <div className="bg-zinc-800/50 border border-zinc-700 rounded-2xl overflow-hidden">
+                        <div className="grid grid-cols-1 md:grid-cols-2">
+                            <div className="hidden md:block relative min-h-[320px]">
+                                <img
+                                    src="/imgs/wp/service-financiamento.jpg"
+                                    alt="Financiamento automóvel"
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-zinc-900/80" />
+                            </div>
+                            <div className="p-8 md:p-10">
+                                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                                    <i className="fas fa-file-invoice-dollar text-yellow-400 mr-2"></i>
+                                    Financiamento à Sua Medida
+                                </h2>
+                                <p className="text-gray-300 leading-relaxed mb-8">
+                                    Na XioteCar ajudamos a encontrar a melhor solução de financiamento para a compra da sua viatura.
+                                </p>
+                                <ul className="space-y-4 mb-8">
+                                    {[
+                                        'Prestações ajustadas ao seu orçamento',
+                                        'Entrada inicial flexível',
+                                        'Aprovação rápida',
+                                        'Acompanhamento personalizado',
+                                    ].map((item) => (
+                                        <li key={item} className="flex items-start gap-3 text-gray-200">
+                                            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-yellow-500/15 text-yellow-400">
+                                                <i className="fas fa-check text-xs"></i>
+                                            </span>
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <p className="text-gray-400 mb-6">
+                                    Peça já a sua simulação sem compromisso.
+                                </p>
+                                <a
+                                    href="/contacto"
+                                    className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg transition"
+                                >
+                                    <i className="fas fa-envelope"></i>
+                                    Pedir Simulação
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -289,19 +317,4 @@ export default function Home({ testemunhos = [] }) {
 
         </PublicLayout>
     );
-}
-
-function handleSimuladorSubmit(e) {
-    e.preventDefault();
-    const valor = parseFloat(document.getElementById('valor').value);
-    const entrada = parseFloat(document.getElementById('entrada').value);
-    const parcelas = parseInt(document.getElementById('parcelas').value);
-
-    if (!isNaN(valor) && !isNaN(entrada) && !isNaN(parcelas) && parcelas > 0) {
-        const saldo = valor - entrada;
-        const mensalidade = saldo / parcelas;
-        document.getElementById('result').textContent = `Parcelas de €${mensalidade.toFixed(2)} por mês.`;
-    } else {
-        document.getElementById('result').textContent = 'Preencha todos os campos corretamente.';
-    }
 }
