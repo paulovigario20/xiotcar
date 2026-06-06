@@ -27,12 +27,12 @@ export default function PublicLayout({ children }) {
 
             {/* HEADER / NAV */}
             <header className="bg-black/90 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-800">
-                <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
-                    <Link href="/">
-                        <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-12 w-auto max-w-[min(100%,320px)] object-contain object-left" />
+                <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-y-3 py-3 md:py-4 px-4 md:px-6">
+                    <Link href="/" className="shrink-0">
+                        <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-16 sm:h-[4.5rem] md:h-20 w-auto max-w-[min(100%,720px)] md:max-w-[min(100%,960px)] object-contain object-left" />
                     </Link>
-                    <nav>
-                        <ul className="flex gap-8 text-sm font-medium tracking-wide uppercase">
+                    <nav className="w-full sm:w-auto">
+                        <ul className="flex flex-wrap justify-center sm:justify-end gap-x-6 gap-y-2 md:gap-8 text-xs sm:text-sm font-medium tracking-wide uppercase">
                             <li><Link href="/" className="text-white hover:text-yellow-400 transition">Início</Link></li>
                             <li><Link href="/carros" className="text-gray-300 hover:text-yellow-400 transition">Viaturas</Link></li>
                             <li><Link href="/sobre" className="text-gray-300 hover:text-yellow-400 transition">Sobre Nós</Link></li>
@@ -49,7 +49,7 @@ export default function PublicLayout({ children }) {
                 <div className="max-w-7xl mx-auto py-12 px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
                     {/* About */}
                     <div>
-                        <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-10 w-auto max-w-[280px] mb-4 object-contain object-left" />
+                        <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-16 md:h-20 w-auto max-w-[min(100%,800px)] mb-4 object-contain object-left" />
                         <p className="text-gray-400 text-sm leading-relaxed">
                             Fundada em 2018 em Azeitão, a Xiotecar é referência no comércio de automóveis multimarcas usados e seminovos, com foco na confiança, qualidade e proximidade.
                         </p>
