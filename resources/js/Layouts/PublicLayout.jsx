@@ -29,7 +29,7 @@ export default function PublicLayout({ children }) {
             <header className="bg-black/90 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-800">
                 <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
                     <Link href="/">
-                        <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-12 object-contain" />
+                        <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-12 w-auto max-w-[min(100%,320px)] object-contain object-left" />
                     </Link>
                     <nav>
                         <ul className="flex gap-8 text-sm font-medium tracking-wide uppercase">
@@ -49,7 +49,7 @@ export default function PublicLayout({ children }) {
                 <div className="max-w-7xl mx-auto py-12 px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
                     {/* About */}
                     <div>
-                        <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-10 mb-4 object-contain" />
+                        <img src="/imgs/wp/logo-header.png" alt="Xiotecar" className="h-10 w-auto max-w-[280px] mb-4 object-contain object-left" />
                         <p className="text-gray-400 text-sm leading-relaxed">
                             Fundada em 2018 em Azeitão, a Xiotecar é referência no comércio de automóveis multimarcas usados e seminovos, com foco na confiança, qualidade e proximidade.
                         </p>
