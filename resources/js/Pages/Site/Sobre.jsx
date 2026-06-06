@@ -8,8 +8,12 @@ export default function Sobre() {
             <Head title="Sobre Nós" />
 
             {/* Hero */}
-            <section className="bg-zinc-900 py-20">
-                <div className="max-w-4xl mx-auto px-6 text-center">
+            <section className="relative bg-zinc-900 py-20 overflow-hidden">
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-20"
+                    style={{ backgroundImage: 'url(/imgs/wp/sobre-stand.jpg)' }}
+                />
+                <div className="relative max-w-4xl mx-auto px-6 text-center">
                     <h1 className="text-4xl font-bold text-white mb-4">Sobre o Stand Xiotecar</h1>
                     <div className="w-16 h-1 bg-yellow-400 mx-auto"></div>
                 </div>
@@ -18,17 +22,26 @@ export default function Sobre() {
             {/* Content */}
             <section className="bg-black py-16">
                 <div className="max-w-5xl mx-auto px-6">
-                    <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-                        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 lg:sticky lg:top-28">
-                            <span className="inline-flex items-center rounded-full bg-yellow-400/10 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-yellow-400">
-                                Desde 2018
-                            </span>
-                            <h2 className="mt-6 text-3xl font-bold leading-tight text-white">
-                                Confiança, qualidade e proximidade no mercado automóvel.
-                            </h2>
-                            <p className="mt-4 text-gray-400 leading-relaxed">
-                                A Xiotecar combina experiência, dedicação e inovação para oferecer um serviço completo em Azeitão.
-                            </p>
+                    <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+                        <div className="lg:sticky lg:top-28 space-y-6">
+                            <div className="rounded-2xl overflow-hidden border border-zinc-800">
+                                <img
+                                    src="/imgs/wp/sobre-stand.jpg"
+                                    alt="Stand Xiotecar em Azeitão"
+                                    className="w-full h-auto object-cover"
+                                />
+                            </div>
+                            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
+                                <span className="inline-flex items-center rounded-full bg-yellow-400/10 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-yellow-400">
+                                    Desde 2018
+                                </span>
+                                <h2 className="mt-6 text-2xl font-bold leading-tight text-white">
+                                    Confiança, qualidade e proximidade no mercado automóvel.
+                                </h2>
+                                <p className="mt-4 text-gray-400 leading-relaxed">
+                                    A Xiotecar combina experiência, dedicação e inovação para oferecer um serviço completo em Azeitão.
+                                </p>
+                            </div>
                         </div>
 
                         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 md:p-10 text-gray-300 text-lg leading-relaxed">
