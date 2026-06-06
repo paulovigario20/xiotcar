@@ -49,23 +49,27 @@ export default function Home({ testemunhos = [] }) {
                     loop={true}
                     autoplay={{ delay: 4000, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
-                    className="w-full h-[500px] md:h-[600px]"
+                    className="hero-swiper w-full h-[52vh] min-h-[360px] max-h-[480px] md:h-[600px] md:max-h-none"
                 >
                     {heroImages.map((img, i) => (
                         <SwiperSlide key={i}>
-                            <div
-                                className="w-full h-full bg-cover bg-center"
-                                style={{ backgroundImage: `url(${img})` }}
-                            >
-                                <div className="w-full h-full bg-black/50 flex items-center justify-center">
-                                    <div className="text-center px-6 max-w-3xl">
-                                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
+                            <div className="relative w-full h-full bg-black overflow-hidden">
+                                <img
+                                    src={img}
+                                    alt=""
+                                    aria-hidden="true"
+                                    loading={i === 0 ? 'eager' : 'lazy'}
+                                    className="absolute inset-0 w-full h-full object-contain object-center md:object-cover md:object-center"
+                                />
+                                <div className="relative z-10 w-full h-full bg-black/45 md:bg-black/50 flex items-center justify-center">
+                                    <div className="text-center px-4 sm:px-6 max-w-3xl">
+                                        <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4 drop-shadow-lg leading-tight">
                                             Encontre o usado e semi-novo perfeito
                                         </h1>
-                                        <p className="text-lg text-gray-200 mb-8">
+                                        <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-5 md:mb-8 leading-relaxed">
                                             Em Azeitão, com confiança, garantia e acompanhamento profissional em todas as etapas.
                                         </p>
-                                        <a href="/carros" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-8 py-3 rounded-lg transition text-lg">
+                                        <a href="/carros" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-2.5 md:px-8 md:py-3 rounded-lg transition text-base md:text-lg">
                                             Ver Viaturas
                                         </a>
                                     </div>
