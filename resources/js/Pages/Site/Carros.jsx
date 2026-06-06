@@ -31,8 +31,8 @@ export default function Carros({ cars }) {
 
                                 {/* Image */}
                                 <div className="h-52 bg-zinc-800 overflow-hidden">
-                                    {car.image ? (
-                                        <img src={vehicleImage(car.image)} alt={`${car.brand?.name} ${car.model}`}
+                                    {car.image_url ? (
+                                        <img src={car.image_url} alt={`${car.brand?.name} ${car.model}`}
                                             className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-gray-600">

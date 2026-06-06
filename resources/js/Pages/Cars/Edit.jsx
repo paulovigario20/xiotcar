@@ -130,10 +130,10 @@ export default function EditCar({ car, brands }) {
                         </div>
 
                         {/* Current image */}
-                        {car.image && (
+                        {car.image_url && (
                             <div className="md:col-span-2">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Foto atual</label>
-                                <img src={`/storage/${car.image}`} alt="Foto atual"
+                                <img src={car.image_url} alt="Foto atual"
                                     className="h-40 object-cover rounded-lg border border-gray-200" />
                             </div>
                         )}

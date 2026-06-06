@@ -40,8 +40,8 @@ export default function CarsIndex({ cars }) {
                             {cars.map(car => (
                                 <tr key={car.id} className="border-t hover:bg-gray-50">
                                     <td className="px-4 py-2">
-                                        {car.image ? (
-                                            <img src={`/storage/${car.image}`} alt="" className="w-16 h-12 object-cover rounded" />
+                                        {car.image_url ? (
+                                            <img src={car.image_url} alt="" className="w-16 h-12 object-cover rounded" />
                                         ) : (
                                             <div className="w-16 h-12 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-xs">
                                                 Sem foto

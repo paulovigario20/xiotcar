@@ -35,6 +35,38 @@ class Car extends Model
         'is_sold' => 'boolean',
     ];
 
+    protected $appends = [
+        'image_url',
+        'extra_photo_urls',
+    ];
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->resolveMediaUrl($this->image);
+    }
+
+    public function getExtraPhotoUrlsAttribute(): array
+    {
+        return collect($this->extra_photos ?? [])
+            ->map(fn ($photo) => $this->resolveMediaUrl($photo))
+            ->filter()
+            ->values()
+            ->all();
+    }
+
+    protected function resolveMediaUrl(?string $path): ?string
+    {
+        if (!$path) {
+            return null;
+        }
+
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+
+        return asset('storage/' . ltrim($path, '/'));
+    }
+
     public function brand()
     {
         return $this->belongsTo(Brand::class);

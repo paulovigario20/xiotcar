@@ -10,8 +10,8 @@ const vehicleImage = (path) => {
 
 export default function CarroDetalhes({ carro }) {
     const allPhotos = [
-        vehicleImage(carro.image),
-        ...(carro.extra_photos || []).map(vehicleImage),
+        carro.image_url || vehicleImage(carro.image),
+        ...(carro.extra_photo_urls?.length ? carro.extra_photo_urls : (carro.extra_photos || []).map(vehicleImage)),
     ].filter(Boolean);
 
     const [activePhoto, setActivePhoto] = useState(allPhotos[0] || null);
