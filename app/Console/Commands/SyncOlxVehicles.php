@@ -15,7 +15,13 @@ class SyncOlxVehicles extends Command
     {
         $this->info('A sincronizar viaturas da OLX...');
 
-        $result = $sync->sync();
+        try {
+            $result = $sync->sync();
+        } catch (\Throwable $e) {
+            $this->error('Falha na sincronização OLX: ' . $e->getMessage());
+
+            return self::FAILURE;
+        }
 
         $this->info("Sincronizadas: {$result['synced']}");
         $this->info("Removidas: {$result['removed']}");

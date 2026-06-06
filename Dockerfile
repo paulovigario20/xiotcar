@@ -63,6 +63,9 @@ php artisan storage:link --force 2>/dev/null || ln -sfn /var/www/html/storage/ap
 php artisan config:cache
 chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Sync OLX em background para não bloquear o health check do Railway (~70s)
+(php artisan olx:sync >> /var/www/html/storage/logs/olx-sync.log 2>&1) &
+
 exec php artisan serve --host=0.0.0.0 --port="$APP_PORT"
 START_CONTAINER
 RUN chmod +x /usr/local/bin/start-container

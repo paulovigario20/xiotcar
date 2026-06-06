@@ -72,7 +72,11 @@ class OlxSyncService
             'user_id' => self::OLX_USER_UUID,
         ]);
 
-        $response->throw();
+        if (!$response->successful()) {
+            throw new \RuntimeException(
+                'OLX API respondeu com HTTP ' . $response->status() . ': ' . $response->body()
+            );
+        }
 
         return $response->json('data', []);
     }
