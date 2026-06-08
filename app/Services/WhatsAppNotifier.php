@@ -3,11 +3,14 @@
 namespace App\Services;
 
 use App\Models\ContactMessage;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class WhatsAppNotifier
 {
+    private ?string $lastError = null;
+
     public function sendContactMessage(ContactMessage $message): bool
     {
         $text = "*Nova mensagem do site XiotCar*\n\n"
@@ -24,10 +27,13 @@ class WhatsAppNotifier
 
     public function send(string $text): bool
     {
+        $this->lastError = null;
         $apiKey = $this->getApiKey();
 
         if ($apiKey === '') {
-            Log::warning('WhatsApp: CALLMEBOT_API_KEY não configurada no Railway. Mensagem guardada apenas no site.');
+            $this->lastError = 'API key não configurada. Cole a chave CallMeBot no formulário abaixo.';
+
+            Log::warning('WhatsApp: API key não configurada.');
 
             return false;
         }
@@ -44,6 +50,8 @@ class WhatsAppNotifier
             $body = strip_tags($response->body());
 
             if ($this->responseIndicatesFailure($response->status(), $body)) {
+                $this->lastError = $body ?: 'CallMeBot rejeitou o pedido (HTTP ' . $response->status() . ')';
+
                 Log::error('WhatsApp CallMeBot falhou', [
                     'status' => $response->status(),
                     'body' => $body,
@@ -57,10 +65,17 @@ class WhatsAppNotifier
 
             return true;
         } catch (\Throwable $e) {
+            $this->lastError = $e->getMessage();
+
             Log::error('WhatsApp CallMeBot exceção: ' . $e->getMessage());
 
             return false;
         }
+    }
+
+    public function getLastError(): ?string
+    {
+        return $this->lastError;
     }
 
     public function isConfigured(): bool
@@ -81,13 +96,36 @@ class WhatsAppNotifier
 
     public function getPhone(): string
     {
+        $phone = Setting::get('whatsapp_phone');
+
+        if ($phone) {
+            return $phone;
+        }
+
         return $this->envValue('WHATSAPP_PHONE')
             ?? config('services.whatsapp.phone')
             ?? '351933188588';
     }
 
+    public function saveSettings(?string $apiKey, ?string $phone): void
+    {
+        if ($apiKey !== null) {
+            Setting::set('callmebot_api_key', trim($apiKey) ?: null);
+        }
+
+        if ($phone !== null) {
+            Setting::set('whatsapp_phone', preg_replace('/\D/', '', $phone) ?: null);
+        }
+    }
+
     private function getApiKey(): string
     {
+        $dbKey = Setting::get('callmebot_api_key');
+
+        if ($dbKey) {
+            return trim($dbKey);
+        }
+
         $key = $this->envValue('CALLMEBOT_API_KEY')
             ?? config('services.whatsapp.callmebot_api_key');
 
@@ -96,7 +134,6 @@ class WhatsAppNotifier
 
     private function envValue(string $key): ?string
     {
-        // getenv primeiro: variáveis Railway. $_ENV pode ter valor vazio do .env baked na imagem.
         $candidates = [getenv($key), $_SERVER[$key] ?? null, $_ENV[$key] ?? null];
 
         foreach ($candidates as $value) {
