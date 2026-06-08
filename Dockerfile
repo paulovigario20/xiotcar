@@ -52,6 +52,18 @@ touch /var/www/html/database/database.sqlite
 export APP_URL="${APP_URL:-https://xiotecar.pt}"
 export APP_ENV="${APP_ENV:-production}"
 
+# Garantir que variáveis Railway sobrepõem linhas vazias do .env
+if [ -n "$CALLMEBOT_API_KEY" ]; then
+  grep -v '^CALLMEBOT_API_KEY=' /var/www/html/.env > /tmp/.env.railway 2>/dev/null || true
+  mv /tmp/.env.railway /var/www/html/.env
+  echo "CALLMEBOT_API_KEY=$CALLMEBOT_API_KEY" >> /var/www/html/.env
+fi
+if [ -n "$WHATSAPP_PHONE" ]; then
+  grep -v '^WHATSAPP_PHONE=' /var/www/html/.env > /tmp/.env.railway 2>/dev/null || true
+  mv /tmp/.env.railway /var/www/html/.env
+  echo "WHATSAPP_PHONE=$WHATSAPP_PHONE" >> /var/www/html/.env
+fi
+
 APP_PORT="${PORT:-8080}"
 case "$APP_PORT" in
     ''|*[!0-9]*) APP_PORT=8080 ;;
