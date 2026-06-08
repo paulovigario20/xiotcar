@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
+use App\Services\WhatsAppNotifier;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,13 +14,16 @@ class ContactoController extends Controller
         return Inertia::render('Site/Contacto');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, WhatsAppNotifier $whatsapp)
     {
-        $request->validate([
+        $data = $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|email',
-            'mensagem' => 'required|string',
+            'mensagem' => 'required|string|max:5000',
         ]);
+
+        $message = ContactMessage::create($data);
+        $whatsapp->sendContactMessage($message);
 
         return redirect()->route('Contacto.index')->with('success', 'Mensagem enviada com sucesso!');
     }
