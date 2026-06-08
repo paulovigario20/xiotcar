@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'whatsapp' => [
+        'phone' => env('WHATSAPP_PHONE', '351933188588'),
+        'callmebot_api_key' => env('CALLMEBOT_API_KEY'),
+    ],
+
 ];

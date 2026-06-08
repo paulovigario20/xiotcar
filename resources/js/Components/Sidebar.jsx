@@ -10,7 +10,7 @@ export default function Sidebar() {
                 <Link href="/dashboard" className="hover:bg-gray-700 p-2 rounded">Dashboard</Link>
                 <Link href="/brands" className="hover:bg-gray-700 p-2 rounded">Marcas</Link>
                 <Link href="/cars" className="hover:bg-gray-700 p-2 rounded">Carros</Link>
-                {/* Adicione mais links conforme precisar */}
+                <Link href="/mensagens" className="hover:bg-gray-700 p-2 rounded">Mensagens</Link>
             </nav>
         </div>
     );

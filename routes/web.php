@@ -11,6 +11,7 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\RetomaController;
 use App\Http\Controllers\TestemunhoController;
 use App\Http\Controllers\ContactoController;
+use App\Http\Controllers\ContactMessageController;
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -54,6 +55,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mensagens', [ContactMessageController::class, 'index'])->name('mensagens.index');
+    Route::delete('/mensagens/{mensagem}', [ContactMessageController::class, 'destroy'])->name('mensagens.destroy');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/brands/create', [BrandController::class, 'create'])->name('brands.create');
