@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\RetomaSubmetida;
-use App\Models\Retoma;
-use App\Models\Car;
 use App\Models\Brand;
+use App\Models\Car;
+use App\Models\Retoma;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class RetomaController extends Controller
 {
     public function index()
     {
-        $retomas = Retoma::orderBy("created_at", "desc")->get();
-        return Inertia::render("Dashboard", [
-            "retomas" => $retomas,
-            "carsCount" => Car::count(),
-            "brandsCount" => Brand::count(),
-            "usersCount" => User::count(),
+        $retomas = Retoma::orderBy('created_at', 'desc')->get();
+
+        return Inertia::render('Dashboard', [
+            'retomas' => $retomas,
+            'carsCount' => Car::count(),
+            'brandsCount' => Brand::count(),
+            'usersCount' => User::count(),
         ]);
     }
 
@@ -34,19 +33,30 @@ class RetomaController extends Controller
             'combustivel' => 'required|string',
             'telefone' => 'required|string',
             'observacoes' => 'nullable|string',
-            'fotos.*' => 'nullable|image|max:5000'
+            'fotos.*' => 'nullable|image|max:5000',
         ]);
 
         $paths = [];
         if ($request->hasFile('fotos')) {
             foreach ($request->file('fotos') as $foto) {
-                $paths[] = $foto->store('retomas');
+                $paths[] = $foto->store('retomas', 'public');
             }
         }
 
-        $data['fotos'] = $paths;
+        $observacoes = trim(
+            "Combustível: {$data['combustivel']}"
+            . ($data['observacoes'] ? "\n\n{$data['observacoes']}" : '')
+        );
 
-        Mail::to('iuricalado310@gmail.com')->send(new RetomaSubmetida($data));
+        Retoma::create([
+            'marca' => $data['marca'],
+            'modelo' => $data['modelo'],
+            'ano' => $data['ano'],
+            'quilometragem' => $data['km'],
+            'contacto' => $data['telefone'],
+            'observacoes' => $observacoes,
+            'imagens' => $paths,
+        ]);
 
         return back()->with('success', 'Pedido de retoma enviado com sucesso!');
     }

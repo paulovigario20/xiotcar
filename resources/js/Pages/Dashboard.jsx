@@ -74,12 +74,13 @@ export default function Dashboard({ carsCount = 0, brandsCount = 0, usersCount =
         <ul className="space-y-4">
             {retomas.map((retoma) => (
                 <li key={retoma.id} className="p-4 border rounded-md shadow-sm bg-gray-50">
-                    <p><strong>Nome:</strong> {retoma.nome}</p>
-                    <p><strong>Email:</strong> {retoma.email}</p>
                     <p><strong>Marca:</strong> {retoma.marca}</p>
                     <p><strong>Modelo:</strong> {retoma.modelo}</p>
-                    <p><strong>Mensagem:</strong> {retoma.mensagem}</p>
-                    <p className="text-sm text-gray-500 mt-2">Recebido em: {new Date(retoma.created_at).toLocaleString()}</p>
+                    <p><strong>Ano:</strong> {retoma.ano}</p>
+                    <p><strong>Quilómetros:</strong> {Number(retoma.quilometragem).toLocaleString()} km</p>
+                    <p><strong>Contacto:</strong> {retoma.contacto}</p>
+                    {retoma.observacoes && <p><strong>Observações:</strong> {retoma.observacoes}</p>}
+                    <p className="text-sm text-gray-500 mt-2">Recebido em: {new Date(retoma.created_at).toLocaleString('pt-PT')}</p>
                 </li>
             ))}
         </ul>
