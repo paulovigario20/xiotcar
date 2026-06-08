@@ -15,6 +15,8 @@ class ContactMessageController extends Controller
                 ->orderByDesc('created_at')
                 ->get(),
             'whatsappConfigured' => $whatsapp->isConfigured(),
+            'whatsappKeyHint' => $whatsapp->getKeyHint(),
+            'whatsappPhone' => $whatsapp->getPhone(),
         ]);
     }
 

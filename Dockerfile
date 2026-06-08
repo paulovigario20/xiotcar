@@ -61,7 +61,6 @@ php artisan migrate --force
 php artisan db:seed --force
 php artisan storage:link --force 2>/dev/null || ln -sfn /var/www/html/storage/app/public /var/www/html/public/storage
 php artisan config:clear
-php artisan config:cache
 chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
 
 exec php artisan serve --host=0.0.0.0 --port="$APP_PORT"
