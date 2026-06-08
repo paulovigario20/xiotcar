@@ -24,7 +24,7 @@ class WhatsAppNotifier
 
     public function send(string $text): bool
     {
-        $apiKey = trim((string) config('services.whatsapp.callmebot_api_key', ''));
+        $apiKey = $this->getApiKey();
 
         if ($apiKey === '') {
             Log::warning('WhatsApp: CALLMEBOT_API_KEY não configurada no Railway. Mensagem guardada apenas no site.');
@@ -32,7 +32,7 @@ class WhatsAppNotifier
             return false;
         }
 
-        $phone = $this->formatPhone(config('services.whatsapp.phone', '351933188588'));
+        $phone = $this->formatPhone($this->getPhone());
 
         try {
             $response = Http::timeout(20)->get('https://api.callmebot.com/whatsapp.php', [
@@ -65,7 +65,33 @@ class WhatsAppNotifier
 
     public function isConfigured(): bool
     {
-        return trim((string) config('services.whatsapp.callmebot_api_key', '')) !== '';
+        return $this->getApiKey() !== '';
+    }
+
+    private function getApiKey(): string
+    {
+        $key = config('services.whatsapp.callmebot_api_key');
+
+        if ($key) {
+            return trim((string) $key);
+        }
+
+        $env = getenv('CALLMEBOT_API_KEY');
+
+        return $env ? trim((string) $env) : '';
+    }
+
+    private function getPhone(): string
+    {
+        $phone = config('services.whatsapp.phone');
+
+        if ($phone) {
+            return (string) $phone;
+        }
+
+        $env = getenv('WHATSAPP_PHONE');
+
+        return $env ? (string) $env : '351933188588';
     }
 
     private function formatPhone(string $phone): string
