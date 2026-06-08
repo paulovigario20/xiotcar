@@ -68,30 +68,41 @@ class WhatsAppNotifier
         return $this->getApiKey() !== '';
     }
 
-    private function getApiKey(): string
+    public function getKeyHint(): ?string
     {
-        $key = config('services.whatsapp.callmebot_api_key');
+        $key = $this->getApiKey();
 
-        if ($key) {
-            return trim((string) $key);
+        if ($key === '') {
+            return null;
         }
 
-        $env = getenv('CALLMEBOT_API_KEY');
-
-        return $env ? trim((string) $env) : '';
+        return str_repeat('•', max(0, strlen($key) - 4)) . substr($key, -4);
     }
 
-    private function getPhone(): string
+    public function getPhone(): string
     {
-        $phone = config('services.whatsapp.phone');
+        return $this->envValue('WHATSAPP_PHONE')
+            ?? config('services.whatsapp.phone')
+            ?? '351933188588';
+    }
 
-        if ($phone) {
-            return (string) $phone;
+    private function getApiKey(): string
+    {
+        $key = $this->envValue('CALLMEBOT_API_KEY')
+            ?? config('services.whatsapp.callmebot_api_key');
+
+        return $key ? trim((string) $key) : '';
+    }
+
+    private function envValue(string $key): ?string
+    {
+        $value = $_ENV[$key] ?? $_SERVER[$key] ?? getenv($key);
+
+        if ($value === false || $value === null || $value === '') {
+            return null;
         }
 
-        $env = getenv('WHATSAPP_PHONE');
-
-        return $env ? (string) $env : '351933188588';
+        return trim((string) $value);
     }
 
     private function formatPhone(string $phone): string

@@ -1,7 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router, usePage } from '@inertiajs/react';
 
-export default function ContactMessagesIndex({ mensagens = [], whatsappConfigured = false }) {
+export default function ContactMessagesIndex({
+    mensagens = [],
+    whatsappConfigured = false,
+    whatsappKeyHint = null,
+    whatsappPhone = '351933188588',
+}) {
     const { flash } = usePage().props;
 
     const handleDelete = (mensagem) => {
@@ -36,15 +41,19 @@ export default function ContactMessagesIndex({ mensagens = [], whatsappConfigure
                     </div>
                 )}
 
-                {!whatsappConfigured && (
+                {whatsappConfigured ? (
+                    <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg text-sm">
+                        <p className="font-semibold">WhatsApp configurado</p>
+                        <p>Chave API: {whatsappKeyHint} · Telefone: +{whatsappPhone.replace(/\D/g, '')}</p>
+                    </div>
+                ) : (
                     <div className="bg-amber-50 border border-amber-200 text-amber-900 px-4 py-4 rounded-lg text-sm leading-relaxed">
                         <p className="font-semibold mb-2">WhatsApp não configurado</p>
-                        <p>As mensagens estão a ser guardadas no site, mas não chegam ao WhatsApp porque falta a variável <code className="bg-amber-100 px-1 rounded">CALLMEBOT_API_KEY</code> no Railway.</p>
+                        <p>As mensagens estão a ser guardadas no site, mas não chegam ao WhatsApp porque o servidor não está a ler a variável <code className="bg-amber-100 px-1 rounded">CALLMEBOT_API_KEY</code>.</p>
                         <ol className="list-decimal list-inside mt-2 space-y-1">
-                            <li>Adiciona <strong>+34 644 10 28 72</strong> aos contactos como &quot;CallMeBot&quot;</li>
-                            <li>Envia no WhatsApp: <em>I allow callmebot to send me messages</em></li>
-                            <li>Copia a API key recebida para o Railway → Variables → <code className="bg-amber-100 px-1 rounded">CALLMEBOT_API_KEY</code></li>
-                            <li>Confirma <code className="bg-amber-100 px-1 rounded">WHATSAPP_PHONE=351933188588</code></li>
+                            <li>Confirma <code className="bg-amber-100 px-1 rounded">CALLMEBOT_API_KEY</code> no Railway (serviço web)</li>
+                            <li>Faz <strong>Redeploy</strong> após guardar as variáveis</li>
+                            <li>A API key deve ser ativada no telemóvel <strong>+351 933 188 588</strong> via CallMeBot (+34 644 10 28 72)</li>
                         </ol>
                     </div>
                 )}
@@ -77,7 +86,7 @@ export default function ContactMessagesIndex({ mensagens = [], whatsappConfigure
                                             </p>
                                         </div>
                                         <div className="flex shrink-0 gap-2">
-                                            {!mensagem.whatsapp_sent && whatsappConfigured && (
+                                            {!mensagem.whatsapp_sent && (
                                                 <button
                                                     type="button"
                                                     onClick={() => handleResend(mensagem)}
