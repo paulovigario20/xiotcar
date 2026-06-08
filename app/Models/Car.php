@@ -10,7 +10,6 @@ class Car extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'olx_id',
         'brand_id',
         'model',
         'version',
