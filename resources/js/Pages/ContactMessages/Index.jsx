@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, router, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 
 export default function ContactMessagesIndex({
     mensagens = [],
@@ -8,6 +8,10 @@ export default function ContactMessagesIndex({
     whatsappPhone = '351933188588',
 }) {
     const { flash } = usePage().props;
+    const { data, setData, post, processing } = useForm({
+        callmebot_api_key: '',
+        whatsapp_phone: whatsappPhone.replace(/\D/g, '') || '351933188588',
+    });
 
     const handleDelete = (mensagem) => {
         if (confirm(`Eliminar mensagem de ${mensagem.nome}?`)) {
@@ -17,6 +21,11 @@ export default function ContactMessagesIndex({
 
     const handleResend = (mensagem) => {
         router.post(`/mensagens/${mensagem.id}/resend`);
+    };
+
+    const saveWhatsApp = (e) => {
+        e.preventDefault();
+        post('/mensagens/whatsapp');
     };
 
     return (
@@ -47,14 +56,47 @@ export default function ContactMessagesIndex({
                         <p>Chave API: {whatsappKeyHint} · Telefone: +{whatsappPhone.replace(/\D/g, '')}</p>
                     </div>
                 ) : (
-                    <div className="bg-amber-50 border border-amber-200 text-amber-900 px-4 py-4 rounded-lg text-sm leading-relaxed">
-                        <p className="font-semibold mb-2">WhatsApp não configurado</p>
-                        <p>As mensagens estão a ser guardadas no site, mas não chegam ao WhatsApp porque o servidor não está a ler a variável <code className="bg-amber-100 px-1 rounded">CALLMEBOT_API_KEY</code>.</p>
-                        <ol className="list-decimal list-inside mt-2 space-y-1">
-                            <li>Confirma <code className="bg-amber-100 px-1 rounded">CALLMEBOT_API_KEY</code> no Railway (serviço web)</li>
-                            <li>Faz <strong>Redeploy</strong> após guardar as variáveis</li>
-                            <li>A API key deve ser ativada no telemóvel <strong>+351 933 188 588</strong> via CallMeBot (+34 644 10 28 72)</li>
+                    <div className="bg-white border border-zinc-200 rounded-lg p-6 shadow-sm">
+                        <h3 className="font-semibold text-gray-900 mb-2">Configurar WhatsApp (CallMeBot)</h3>
+                        <p className="text-sm text-gray-600 mb-4">
+                            Cole aqui a API key que recebeu do CallMeBot. O Railway não está a passar a variável — esta configuração fica guardada no site.
+                        </p>
+                        <ol className="text-sm text-gray-600 list-decimal list-inside mb-4 space-y-1">
+                            <li>Adiciona <strong>+34 644 10 28 72</strong> como contacto &quot;CallMeBot&quot;</li>
+                            <li>No telemóvel <strong>933 188 588</strong>, envia: <em>I allow callmebot to send me messages</em></li>
+                            <li>Copia a API key recebida e cola abaixo</li>
                         </ol>
+                        <form onSubmit={saveWhatsApp} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="sm:col-span-2">
+                                <label className="block text-sm text-gray-600 mb-1">API Key CallMeBot</label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="Ex: 1234567"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:border-yellow-500 focus:outline-none"
+                                    value={data.callmebot_api_key}
+                                    onChange={(e) => setData('callmebot_api_key', e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-gray-600 mb-1">Telefone (sem +)</label>
+                                <input
+                                    type="text"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:border-yellow-500 focus:outline-none"
+                                    value={data.whatsapp_phone}
+                                    onChange={(e) => setData('whatsapp_phone', e.target.value)}
+                                />
+                            </div>
+                            <div className="flex items-end">
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50"
+                                >
+                                    Guardar e testar WhatsApp
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 )}
 
@@ -86,7 +128,7 @@ export default function ContactMessagesIndex({
                                             </p>
                                         </div>
                                         <div className="flex shrink-0 gap-2">
-                                            {!mensagem.whatsapp_sent && (
+                                            {!mensagem.whatsapp_sent && whatsappConfigured && (
                                                 <button
                                                     type="button"
                                                     onClick={() => handleResend(mensagem)}
