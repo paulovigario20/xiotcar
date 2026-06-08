@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mensagens', [ContactMessageController::class, 'index'])->name('mensagens.index');
+    Route::post('/mensagens/{mensagem}/resend', [ContactMessageController::class, 'resend'])->name('mensagens.resend');
     Route::delete('/mensagens/{mensagem}', [ContactMessageController::class, 'destroy'])->name('mensagens.destroy');
 });
 
