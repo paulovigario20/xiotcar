@@ -96,13 +96,16 @@ class WhatsAppNotifier
 
     private function envValue(string $key): ?string
     {
-        $value = $_ENV[$key] ?? $_SERVER[$key] ?? getenv($key);
+        // getenv primeiro: variáveis Railway. $_ENV pode ter valor vazio do .env baked na imagem.
+        $candidates = [getenv($key), $_SERVER[$key] ?? null, $_ENV[$key] ?? null];
 
-        if ($value === false || $value === null || $value === '') {
-            return null;
+        foreach ($candidates as $value) {
+            if ($value !== false && $value !== null && trim((string) $value) !== '') {
+                return trim((string) $value);
+            }
         }
 
-        return trim((string) $value);
+        return null;
     }
 
     private function formatPhone(string $phone): string
