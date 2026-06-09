@@ -59,7 +59,17 @@ export default function PublicLayout({ children }) {
                     <div>
                         <h4 className="text-yellow-400 font-semibold text-sm uppercase tracking-wider mb-4">Contacto</h4>
                         <ul className="text-gray-400 text-sm space-y-2">
-                            <li><i className="fas fa-map-marker-alt mr-2 text-yellow-400"></i>Azeitão, Setúbal</li>
+                            <li>
+                                <i className="fas fa-map-marker-alt mr-2 text-yellow-400"></i>
+                                <a
+                                    href="https://maps.app.goo.gl/Lju9FFuhYrEgGgpD7"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-yellow-400 transition"
+                                >
+                                    Quinta do Conde, Setúbal
+                                </a>
+                            </li>
                             <li><i className="fas fa-phone mr-2 text-yellow-400"></i>+351 933 188 588</li>
                             <li><i className="fas fa-envelope mr-2 text-yellow-400"></i>xiotecar@gmail.com</li>
                         </ul>

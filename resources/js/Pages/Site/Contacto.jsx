@@ -71,7 +71,14 @@ export default function Contacto() {
                             <ul className="space-y-4 text-gray-300">
                                 <li className="flex items-start gap-3">
                                     <i className="fas fa-map-marker-alt text-yellow-400 mt-1"></i>
-                                    <span>Azeitão, Setúbal</span>
+                                    <a
+                                        href="https://maps.app.goo.gl/Lju9FFuhYrEgGgpD7"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:text-yellow-400 transition"
+                                    >
+                                        Quinta do Conde, Setúbal
+                                    </a>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <i className="fas fa-envelope text-yellow-400 mt-1"></i>
@@ -94,8 +101,8 @@ export default function Contacto() {
 
                         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 overflow-hidden">
                             <iframe
-                                title="mapa"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3111.123456789!2d-9.139337384657219!3d38.7369465795965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331c9f9a1f3f%3A0x7bc0c4b3bd0b3b0!2sLisboa!5e0!3m2!1spt-PT!2spt!4v0000000000000"
+                                title="Localização Xiotecar — Quinta do Conde"
+                                src="https://maps.google.com/maps?q=38.569854,-9.037163&z=17&hl=pt&output=embed"
                                 width="100%" height="250"
                                 style={{ border: 0, borderRadius: '0.5rem' }}
                                 allowFullScreen="" loading="lazy"
