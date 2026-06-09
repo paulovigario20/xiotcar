@@ -76,7 +76,7 @@ php artisan config:clear
 chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Restaurar viaturas da OLX apenas se a base de dados estiver vazia (nunca apaga stock existente)
-php artisan vehicles:ensure
+php artisan vehicles:ensure || echo "vehicles:ensure: a continuar sem restaurar (tentar olx:sync manualmente)"
 
 exec php artisan serve --host=0.0.0.0 --port="$APP_PORT"
 START_CONTAINER
