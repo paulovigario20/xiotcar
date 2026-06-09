@@ -21,7 +21,10 @@ class OlxSyncService
         'Aston Martin',
     ];
 
-    public function sync(): array
+    /**
+     * @param  bool  $prune  Só remove viaturas com olx_id que já não estão na OLX. Nunca apaga viaturas do backoffice (olx_id null).
+     */
+    public function sync(bool $prune = false): array
     {
         $offers = $this->fetchOffers();
         $syncedIds = [];
@@ -46,12 +49,14 @@ class OlxSyncService
             );
         }
 
-        $removed = Car::query()
-            ->where(function ($query) use ($syncedIds) {
-                $query->whereNull('olx_id')
-                    ->orWhereNotIn('olx_id', $syncedIds);
-            })
-            ->delete();
+        $removed = 0;
+
+        if ($prune) {
+            $removed = Car::query()
+                ->whereNotNull('olx_id')
+                ->whereNotIn('olx_id', $syncedIds)
+                ->delete();
+        }
 
         return [
             'synced' => count($syncedIds),
