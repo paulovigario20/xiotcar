@@ -25,6 +25,26 @@ class WhatsAppNotifier
         return $sent;
     }
 
+    public function sendRetomaNotification(array $data, bool $hasPhotos): bool
+    {
+        $observacoes = trim((string) ($data['observacoes'] ?? '')) ?: '—';
+
+        $text = "*Novo pedido de retoma — XiotCar*\n\n"
+            . "*Marca:* {$data['marca']}\n"
+            . "*Modelo:* {$data['modelo']}\n"
+            . "*Ano:* {$data['ano']}\n"
+            . "*Quilómetros:* {$data['km']}\n"
+            . "*Combustível:* {$data['combustivel']}\n"
+            . "*Telefone:* {$data['telefone']}\n"
+            . "*Observações:* {$observacoes}";
+
+        if ($hasPhotos) {
+            $text .= "\n\nForam anexadas fotografias. Consultar no backoffice.";
+        }
+
+        return $this->send($text);
+    }
+
     public function send(string $text): bool
     {
         $this->lastError = null;

@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Viaturas sincronizadas via `php artisan olx:sync` no arranque do container
+        // Viaturas geridas exclusivamente pelo backoffice (/cars)
     }
 }

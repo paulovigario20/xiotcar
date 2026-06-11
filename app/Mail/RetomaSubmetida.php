@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class RetomaSubmetida extends Mailable
 {
@@ -25,7 +26,7 @@ class RetomaSubmetida extends Mailable
         // Anexar fotos se existirem
         if (!empty($this->dados['fotos'])) {
             foreach ($this->dados['fotos'] as $foto) {
-                $email->attach(storage_path('app/' . $foto));
+                $email->attach(Storage::disk('public')->path($foto));
             }
         }
 

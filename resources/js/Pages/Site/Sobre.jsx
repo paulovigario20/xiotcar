@@ -39,7 +39,7 @@ export default function Sobre() {
                                     Confiança, qualidade e proximidade no mercado automóvel.
                                 </h2>
                                 <p className="mt-4 text-gray-400 leading-relaxed">
-                                    A Xiotecar combina experiência, dedicação e inovação para oferecer um serviço completo em Azeitão.
+                                    A Xiotecar combina experiência, dedicação e inovação para oferecer um serviço completo na Quinta do Conde.
                                 </p>
                             </div>
                         </div>
@@ -53,7 +53,7 @@ export default function Sobre() {
                                     Com uma forte presença no mercado automóvel, a Xiotecar destaca-se pela <strong className="text-white">confiança</strong>, <strong className="text-white">qualidade</strong> e <strong className="text-white">profissionalismo</strong> no atendimento aos seus clientes, aliando experiência, dedicação e inovação em cada negócio.
                                 </p>
                                 <p>
-                                    Atualmente, o grupo é constituído pelas empresas <strong className="text-white">Xiotecar Unipessoal Lda</strong>, <strong className="text-white">JBBC Unipessoal Lda</strong> e <strong className="text-white">XD Unipessoal Lda</strong>, reforçando diariamente a sua posição no setor automóvel através de um serviço de excelência e de uma relação de proximidade com os seus clientes.
+                                    Atualmente, o grupo é constituído pelas empresas <span className="text-yellow-400 font-semibold">Xiotecar</span>, <span className="text-yellow-400 font-semibold">JBBC</span> e <span className="text-yellow-400 font-semibold">XD</span>, reforçando diariamente a sua posição no setor automóvel através de um serviço de excelência e de uma relação de proximidade com os seus clientes.
                                 </p>
                                 <p>
                                     Recentemente, o grupo juntou também a <strong className="text-yellow-400">Garage-Wash</strong>, ampliando assim a sua oferta de serviços e proporcionando uma experiência ainda mais completa aos seus clientes.
