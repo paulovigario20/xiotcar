@@ -7,7 +7,9 @@ use App\Models\Brand;
 use App\Models\Car;
 use App\Models\Retoma;
 use App\Models\User;
+use App\Services\WhatsAppNotifier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
@@ -25,7 +27,7 @@ class RetomaController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, WhatsAppNotifier $whatsapp)
     {
         $data = $request->validate([
             'marca' => 'required|string',
@@ -60,7 +62,7 @@ class RetomaController extends Controller
             'imagens' => $paths,
         ]);
 
-        Mail::to(config('mail.retoma_to', 'xiotecar@gmail.com'))->send(new RetomaSubmetida([
+        $mailData = [
             'marca' => $data['marca'],
             'modelo' => $data['modelo'],
             'ano' => $data['ano'],
@@ -69,7 +71,19 @@ class RetomaController extends Controller
             'telefone' => $data['telefone'],
             'observacoes' => $data['observacoes'] ?? '',
             'fotos' => $paths,
-        ]));
+        ];
+
+        try {
+            Mail::to(config('mail.retoma_to', 'xiotecar@gmail.com'))->send(new RetomaSubmetida($mailData));
+        } catch (\Throwable $e) {
+            Log::error('Email de retoma não enviado: ' . $e->getMessage());
+        }
+
+        try {
+            $whatsapp->sendRetomaNotification($mailData, !empty($paths));
+        } catch (\Throwable $e) {
+            Log::error('WhatsApp de retoma não enviado: ' . $e->getMessage());
+        }
 
         return back()->with('success', 'Pedido de retoma enviado com sucesso!');
     }
