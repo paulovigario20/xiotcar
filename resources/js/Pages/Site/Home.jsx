@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -11,6 +11,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 SwiperCore.use([Autoplay, Pagination]);
 
 export default function Home({ testemunhos = [] }) {
+    const { flash } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         marca: '', modelo: '', ano: '', km: '',
         combustivel: '', telefone: '', fotos: null, observacoes: '',
@@ -67,7 +68,7 @@ export default function Home({ testemunhos = [] }) {
                                             Encontre o usado e semi-novo perfeito
                                         </h1>
                                         <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-5 md:mb-8 leading-relaxed">
-                                            Em Azeitão, com confiança, garantia e acompanhamento profissional em todas as etapas.
+                                            Na Quinta do Conde, com confiança, garantia e acompanhamento profissional em todas as etapas.
                                         </p>
                                         <a href="/carros" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-2.5 md:px-8 md:py-3 rounded-lg transition text-base md:text-lg">
                                             Ver Viaturas
@@ -251,6 +252,12 @@ export default function Home({ testemunhos = [] }) {
                     <p className="text-gray-400 mb-10 text-center">
                         Preencha os dados da sua viatura e entraremos em contacto com uma proposta.
                     </p>
+
+                    {flash?.success && (
+                        <div className="mb-6 p-4 bg-green-900/40 border border-green-600 text-green-300 rounded-lg text-center">
+                            <i className="fas fa-check-circle mr-2"></i>{flash.success}
+                        </div>
+                    )}
 
                     <form onSubmit={submitRetoma}
                         className="grid grid-cols-1 md:grid-cols-2 gap-5 bg-zinc-900 border border-zinc-800 p-8 rounded-xl"

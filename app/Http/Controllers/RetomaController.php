@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RetomaSubmetida;
 use App\Models\Brand;
 use App\Models\Car;
 use App\Models\Retoma;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class RetomaController extends Controller
@@ -57,6 +59,17 @@ class RetomaController extends Controller
             'observacoes' => $observacoes,
             'imagens' => $paths,
         ]);
+
+        Mail::to(config('mail.retoma_to', 'xiotecar@gmail.com'))->send(new RetomaSubmetida([
+            'marca' => $data['marca'],
+            'modelo' => $data['modelo'],
+            'ano' => $data['ano'],
+            'km' => $data['km'],
+            'combustivel' => $data['combustivel'],
+            'telefone' => $data['telefone'],
+            'observacoes' => $data['observacoes'] ?? '',
+            'fotos' => $paths,
+        ]));
 
         return back()->with('success', 'Pedido de retoma enviado com sucesso!');
     }
