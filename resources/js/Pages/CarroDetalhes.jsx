@@ -72,7 +72,7 @@ export default function CarroDetalhes({ carro }) {
                             )}
 
                             <div className="text-3xl font-bold text-yellow-400 mb-8">
-                                €{Number(carro.price).toLocaleString()}
+                                {carro.price ? `€${Number(carro.price).toLocaleString()}` : 'Sob consulta'}
                             </div>
 
                             {/* Specs grid */}
