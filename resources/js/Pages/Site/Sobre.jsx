@@ -65,7 +65,7 @@ export default function Sobre() {
                                     Todos os dias, a nossa equipa dá o seu melhor contributo para alcançar o principal objetivo da Xiotecar: <strong className="text-yellow-400">oferecer um serviço de excelência e garantir a máxima satisfação dos seus clientes</strong>.
                                 </p>
                                 <p>
-                                    O cliente tem à sua disposição viaturas dos mais variados segmentos, bem como um <strong className="text-white">serviço pós-venda de excelência</strong>. Na hora de comprar o seu novo automóvel, a Xiotecar, em Azeitão, é o local certo para visitar.
+                                    O cliente tem à sua disposição viaturas dos mais variados segmentos, bem como um <strong className="text-white">serviço pós-venda de excelência</strong>. Na hora de comprar o seu novo automóvel, a Xiotecar, na Quinta do Conde, é o local certo para visitar.
                                 </p>
                             </div>
                         </div>
