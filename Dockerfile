@@ -25,9 +25,9 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 # Instalar e compilar frontend
 RUN npm install && npm run build
 
-# Preparar base de dados e storage
-RUN mkdir -p /var/www/html/database /var/www/html/storage/app/public/cars \
-    && touch /var/www/html/database/database.sqlite \
+# Preparar storage (SQLite persistente em storage/database/)
+RUN mkdir -p /var/www/html/storage/database /var/www/html/storage/app/public/cars \
+    && touch /var/www/html/storage/database/database.sqlite \
     && chown -R www-data:www-data /var/www/html
 
 # Copiar .env e gerar key
@@ -39,15 +39,16 @@ RUN cat > /usr/local/bin/start-container <<'START_CONTAINER'
 #!/bin/sh
 set -e
 
-mkdir -p /var/www/html/database \
+mkdir -p /var/www/html/storage/database \
     /var/www/html/storage/app/public/cars \
+    /var/www/html/storage/app/public/retomas \
     /var/www/html/storage/framework/cache/data \
     /var/www/html/storage/framework/sessions \
     /var/www/html/storage/framework/views \
     /var/www/html/storage/logs \
     /var/www/html/bootstrap/cache
 
-touch /var/www/html/database/database.sqlite
+touch /var/www/html/storage/database/database.sqlite
 
 export APP_URL="${APP_URL:-https://xiotecar.pt}"
 export APP_ENV="${APP_ENV:-production}"
@@ -73,7 +74,7 @@ php artisan migrate --force
 php artisan db:seed --force
 php artisan storage:link --force 2>/dev/null || ln -sfn /var/www/html/storage/app/public /var/www/html/public/storage
 php artisan config:clear
-chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 exec php artisan serve --host=0.0.0.0 --port="$APP_PORT"
 START_CONTAINER
