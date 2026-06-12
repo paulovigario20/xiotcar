@@ -48,7 +48,14 @@ class Car extends Model
 
     public function getExtraPhotoUrlsAttribute(): array
     {
-        return collect($this->extra_photos ?? [])
+        $photos = $this->extra_photos ?? [];
+
+        // Compatibilidade: fotos extra gravadas por engano em features (CRUD v2)
+        if (empty($photos) && is_array($this->features['extra_photos'] ?? null)) {
+            $photos = $this->features['extra_photos'];
+        }
+
+        return collect($photos)
             ->map(fn ($photo) => $this->resolveMediaUrl($photo))
             ->filter()
             ->values()

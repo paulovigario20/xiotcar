@@ -74,7 +74,7 @@ class CarController extends Controller
             'power' => $request->power,
             'description' => $request->description,
             'image' => $imagePath,
-            'features' => count($extraPhotos) > 0 ? ['extra_photos' => $extraPhotos] : null,
+            'extra_photos' => $extraPhotos ?: null,
         ]);
 
         return redirect()->route('cars.index');
@@ -113,10 +113,8 @@ class CarController extends Controller
         $data['is_sold'] = $request->boolean('is_sold');
 
         if ($request->hasFile('photos')) {
-            // Delete old image
-            if ($car->image) {
-                Storage::disk('public')->delete($car->image);
-            }
+            $this->deleteCarPhotos($car);
+
             $extraPhotos = [];
             foreach ($request->file('photos') as $i => $file) {
                 $path = $file->store('cars', 'public');
@@ -126,9 +124,8 @@ class CarController extends Controller
                     $extraPhotos[] = $path;
                 }
             }
-            if (count($extraPhotos) > 0) {
-                $data['features'] = ['extra_photos' => $extraPhotos];
-            }
+
+            $data['extra_photos'] = $extraPhotos ?: null;
         }
 
         $car->update($data);
@@ -138,10 +135,34 @@ class CarController extends Controller
 
     public function destroy(Car $car)
     {
+        $this->deleteCarPhotos($car);
+        $car->delete();
+
+        return redirect()->route('cars.index');
+    }
+
+    private function deleteCarPhotos(Car $car): void
+    {
         if ($car->image) {
             Storage::disk('public')->delete($car->image);
         }
-        $car->delete();
-        return redirect()->route('cars.index');
+
+        foreach ($this->storedExtraPhotos($car) as $photo) {
+            Storage::disk('public')->delete($photo);
+        }
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function storedExtraPhotos(Car $car): array
+    {
+        $extras = $car->extra_photos ?? [];
+
+        if (empty($extras) && is_array($car->features['extra_photos'] ?? null)) {
+            $extras = $car->features['extra_photos'];
+        }
+
+        return $extras;
     }
 }
