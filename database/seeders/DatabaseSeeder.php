@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        $this->call(BrandSeeder::class);
+
         // Viaturas geridas exclusivamente pelo backoffice (/cars)
     }
 }

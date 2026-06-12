@@ -49,12 +49,22 @@ export default function CreateCar({ brands }) {
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Marca *</label>
                             <select value={data.brand_id} onChange={(e) => setData('brand_id', e.target.value)}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm">
-                                <option value="">Selecione uma marca</option>
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                                disabled={brands.length === 0}>
+                                <option value="">
+                                    {brands.length === 0 ? 'Nenhuma marca disponível' : 'Selecione uma marca'}
+                                </option>
                                 {brands.map((brand) => (
                                     <option key={brand.id} value={brand.id}>{brand.name}</option>
                                 ))}
                             </select>
+                            {brands.length === 0 && (
+                                <p className="text-amber-600 text-sm mt-1">
+                                    Ainda não há marcas.{' '}
+                                    <Link href="/brands/create" className="underline font-medium">Adicionar marca</Link>
+                                    {' '}ou recarregue após o próximo arranque do servidor.
+                                </p>
+                            )}
                             {errors.brand_id && <span className="text-red-500 text-sm">{errors.brand_id}</span>}
                         </div>
 
