@@ -12,6 +12,7 @@ use App\Http\Controllers\RetomaController;
 use App\Http\Controllers\TestemunhoController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\BackupController;
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -55,6 +56,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
 });
 
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/backup/download', [BackupController::class, 'download'])->name('backup.download');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mensagens', [ContactMessageController::class, 'index'])->name('mensagens.index');
