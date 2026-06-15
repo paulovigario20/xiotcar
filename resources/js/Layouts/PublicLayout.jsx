@@ -3,7 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const socialLinks = {
     facebook: 'https://www.facebook.com/xiotecar?locale=pt_PT',
-    instagram: 'https://www.instagram.com/xiotecar_stand_auto_azeitao/',
+    instagram: 'https://www.instagram.com/xiotecar_stand_auto_/',
     whatsapp: 'https://wa.me/351933188588',
 };
 
