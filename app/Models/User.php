@@ -46,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isAdministrator(): bool
+    {
+        return (bool) ($this->is_admin ?? false) || $this->email === 'admin@xiotecar.pt';
+    }
 }

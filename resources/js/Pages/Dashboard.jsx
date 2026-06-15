@@ -1,7 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 
 export default function Dashboard({ carsCount = 0, brandsCount = 0, usersCount = 0, retomas = [] }) {
+    const { auth } = usePage().props;
 
     return (
         <AuthenticatedLayout
@@ -66,6 +67,22 @@ export default function Dashboard({ carsCount = 0, brandsCount = 0, usersCount =
                             </Link>
                         </div>
                     </div>
+
+                    {auth.isAdmin && (
+                        <div className="bg-white p-6 rounded-lg shadow border border-amber-200">
+                            <h3 className="text-lg font-semibold mb-2 text-gray-700">Backup</h3>
+                            <p className="text-sm text-gray-500 mb-4">
+                                Descarrega um ZIP com a base de dados, fotos das viaturas e retomas.
+                            </p>
+                            <a
+                                href={route('backup.download')}
+                                className="inline-flex items-center px-4 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition"
+                            >
+                                Descarregar Backup Completo
+                            </a>
+                        </div>
+                    )}
+
                     <div className="bg-white p-6 rounded-lg shadow">
     <h3 className="text-lg font-semibold mb-4 text-gray-700">Retomas Recentes</h3>
     {retomas.length === 0 ? (
