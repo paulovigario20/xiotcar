@@ -5,11 +5,16 @@ namespace App\Services;
 use App\Models\Car;
 use App\Models\Retoma;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Process;
+use PDO;
 use RuntimeException;
 use ZipArchive;
 
 class BackupService
 {
+    private const DB_BACKUP_SQLITE3 = 'sqlite3_backup';
+    private const DB_BACKUP_VACUUM_INTO = 'vacuum_into';
+    private const DB_BACKUP_FILE_COPY = 'file_copy';
     /**
      * @return array{path: string, filename: string}
      */
@@ -37,13 +42,16 @@ class BackupService
             ['manifest.json'],
         );
 
+        $databaseSnapshot = $this->createConsistentDatabaseSnapshot($databasePath);
+
         $manifest = [
             'created_at' => now()->toIso8601String(),
             'app_version' => config('app.version', '1.0.0'),
             'laravel_version' => app()->version(),
             'cars_count' => Car::count(),
             'retomas_count' => Retoma::count(),
-            'database_size_bytes' => filesize($databasePath) ?: 0,
+            'database_size_bytes' => filesize($databaseSnapshot['path']) ?: 0,
+            'database_backup_method' => $databaseSnapshot['method'],
             'files' => $includedFiles,
         ];
 
@@ -60,11 +68,13 @@ class BackupService
         $zip = new ZipArchive();
 
         if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
+            @unlink($databaseSnapshot['path']);
+
             throw new RuntimeException('Não foi possível criar o ficheiro ZIP.');
         }
 
         try {
-            $zip->addFile($databasePath, 'database.sqlite');
+            $zip->addFile($databaseSnapshot['path'], 'database.sqlite');
 
             foreach (array_merge($carsFiles, $retomasFiles) as $file) {
                 $zip->addFile($file['source_path'], $file['archive_path']);
@@ -74,19 +84,103 @@ class BackupService
                 $manifest,
                 JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
             ) . PHP_EOL);
+
+            $zip->close();
         } catch (\Throwable $e) {
             $zip->close();
             @unlink($zipPath);
 
             throw $e;
+        } finally {
+            @unlink($databaseSnapshot['path']);
         }
-
-        $zip->close();
 
         return [
             'path' => $zipPath,
             'filename' => $filename,
         ];
+    }
+
+    /**
+     * @return array{path: string, method: string}
+     */
+    private function createConsistentDatabaseSnapshot(string $sourcePath): array
+    {
+        $snapshotPath = tempnam(sys_get_temp_dir(), 'xiotecar-db-');
+
+        if ($snapshotPath === false) {
+            throw new RuntimeException('Não foi possível criar ficheiro temporário para o snapshot da base de dados.');
+        }
+
+        $snapshotPath .= '.sqlite';
+        @unlink($snapshotPath);
+
+        if ($this->backupDatabaseWithSqlite3($sourcePath, $snapshotPath)) {
+            return [
+                'path' => $snapshotPath,
+                'method' => self::DB_BACKUP_SQLITE3,
+            ];
+        }
+
+        if ($this->backupDatabaseWithVacuumInto($sourcePath, $snapshotPath)) {
+            return [
+                'path' => $snapshotPath,
+                'method' => self::DB_BACKUP_VACUUM_INTO,
+            ];
+        }
+
+        if (! @copy($sourcePath, $snapshotPath) || ! is_file($snapshotPath)) {
+            throw new RuntimeException('Não foi possível criar snapshot consistente da base de dados SQLite.');
+        }
+
+        return [
+            'path' => $snapshotPath,
+            'method' => self::DB_BACKUP_FILE_COPY,
+        ];
+    }
+
+    private function backupDatabaseWithSqlite3(string $sourcePath, string $destinationPath): bool
+    {
+        $sqlite3 = trim((string) shell_exec('command -v sqlite3 2>/dev/null'));
+
+        if ($sqlite3 === '') {
+            return false;
+        }
+
+        if (is_file($destinationPath)) {
+            @unlink($destinationPath);
+        }
+
+        $result = Process::run([
+            $sqlite3,
+            $sourcePath,
+            '.backup ' . $destinationPath,
+        ]);
+
+        return $result->successful()
+            && is_file($destinationPath)
+            && (filesize($destinationPath) ?: 0) > 0;
+    }
+
+    private function backupDatabaseWithVacuumInto(string $sourcePath, string $destinationPath): bool
+    {
+        if (is_file($destinationPath)) {
+            @unlink($destinationPath);
+        }
+
+        try {
+            $pdo = new PDO('sqlite:' . $sourcePath);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $escapedDestination = str_replace("'", "''", $destinationPath);
+            $pdo->exec("VACUUM INTO '{$escapedDestination}'");
+
+            return is_file($destinationPath) && (filesize($destinationPath) ?: 0) > 0;
+        } catch (\Throwable) {
+            @unlink($destinationPath);
+
+            return false;
+        }
     }
 
     /**

@@ -79,6 +79,15 @@ class BackupServiceTest extends TestCase
         $this->assertContains('database.sqlite', $manifest['files']);
         $this->assertContains('media/cars/test.jpg', $manifest['files']);
         $this->assertContains('media/retomas/test.jpg', $manifest['files']);
+        $this->assertContains($manifest['database_backup_method'], [
+            'sqlite3_backup',
+            'vacuum_into',
+            'file_copy',
+        ]);
+
+        $dbContents = $zip->getFromName('database.sqlite');
+        $this->assertNotFalse($dbContents);
+        $this->assertStringStartsWith('SQLite format 3', $dbContents);
 
         $zip->close();
 
